@@ -2,7 +2,8 @@ para la actividad semanal del proyecto sii -- Green Skin los que nos planteamos 
 
 Fernando(Diseñador):
 *Realizar los formatos pertinentes para realizar entrevistas a un profesor y alguien del puesto de cordinacion, con ello se busca
-conocer la perspectiva que tienen estos dentro del sii para si poder lo realizar lo en futuro en el sitio web.
+conocer la perspectiva que tienen estos dentro del sii para si poder lo realizar lo en futuro en el sitio web y tambien concer las
+carencias que se pueden mejorar del sii
 *Realizar los casos de uso y historia de uso de los maestros y del profesor con las entrevistas echas
 ()- N si no realizo todas las tareas. Y si realiza todas las tareas
 
@@ -13,5 +14,5 @@ Brandoon(Encargado de base de datos):
 
 Alejandro (Programador principal): 
 *debe de elegir en que lenguaje se realizara la logica interna del sitio web
-*realizara la logica del inicio de sesion para alumnos y maestros
+*realizara la logica del inicio de sesion para alumnos, maestros y aspirantes
 ()- N si no realizo todas las tareas. Y si realiza todas las tareas
