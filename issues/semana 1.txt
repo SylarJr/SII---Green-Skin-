@@ -1,7 +1,0 @@
-para la actividad semanal del proyecto sii -- Green Skin los que nos planteamos en la primera semana:
-Fernando(Diseñador):
-identificar las características de la pagina a ello nos referimos para los apartados que tendrá la pagina para así saber que contendrán los apartados y saber como organizar los para que el usuario tenga una mejor experiencia, también hacer el aspecto básico del sitio, (que paginas tendra)
-Brandoon(Encargado de base de datos):
-identificar los atributos de los usuarios, nos referimos en como se conforma cada usuario, su numero de control, contraseña, datos personales, el rol, etc, con eso mismo de los roles debemos de identificar los limites que tendrían cada uno al momento de interactuar en la pagina
-Alejandro (Programador principal): para iniciar este se encargara de la lógica del inicio de sesión y registro para la pagina.
-Juan (Lider): organizar y ordenar lo que van avanzando los empleados y auxiliar en la lógica e ayudar a identificar cada apartado en los que están trabajando cada uno
