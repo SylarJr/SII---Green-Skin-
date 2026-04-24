@@ -13,13 +13,16 @@ document.getElementById('login-form').addEventListener('submit', function(event)
         alert('Usuario o contraseña incorrectos');
     }
 
-    var formularios = document.querySelectorAll('.form-container');
-    formularios.forEach(function(form) {
-      form.classList.remove('active');
-    });
+    function mostrarFormulario(formId) {
+        var formularios = document.querySelectorAll('form');
+        formularios.forEach(function(form) {
+            form.classList.remove('active');
+        });
 
-    var formSeleccionado = document.getElementById(formId);
-    if (formSeleccionado) {
-      formSeleccionado.classList.add('active');
+        var formSeleccionado = document.getElementById(formId);
+        if (formSeleccionado) {
+            formSeleccionado.classList.add('active');
+        }
     }
+    
 });
