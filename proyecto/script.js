@@ -14,7 +14,7 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     }
 
     function mostrarFormulario(formId) {
-        var formularios = document.querySelectorAll('form');
+        var formularios = document.querySelectorAll('.form-container');
         formularios.forEach(function(form) {
             form.classList.remove('active');
         });
