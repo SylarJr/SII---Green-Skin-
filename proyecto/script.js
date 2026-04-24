@@ -17,4 +17,9 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     formularios.forEach(function(form) {
       form.classList.remove('active');
     });
+
+    var formSeleccionado = document.getElementById(formId);
+    if (formSeleccionado) {
+      formSeleccionado.classList.add('active');
+    }
 });
