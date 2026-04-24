@@ -12,4 +12,9 @@ document.getElementById('login-form').addEventListener('submit', function(event)
     } else {
         alert('Usuario o contraseña incorrectos');
     }
+
+    var formularios = document.querySelectorAll('.form-container');
+    formularios.forEach(function(form) {
+      form.classList.remove('active');
+    });
 });
