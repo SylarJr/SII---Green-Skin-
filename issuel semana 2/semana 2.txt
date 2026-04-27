@@ -1,0 +1,11 @@
+semana 2:
+Fernando(Diseñador):
+* Crear el diseño general que se usara para base de las de mas paginas( como sera la barra latera, el ancabezado,
+ como sera las letras, definir la paleta de colores y estilos globales), tambien separar el iniciar sesion entre alumnos
+ y personal institucional
+ 
+brandoon(Encargado de base de datos):
+*Crear la tabala de alumnos, maestros, personal institucional, aspirantes, carrera y roles
+
+Alejandro (Programador principal): 
+*crear la conexion con la base de datos para asi  y crear la estructura de las carpetas que se usaran
