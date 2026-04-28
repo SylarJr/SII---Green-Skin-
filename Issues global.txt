@@ -17,44 +17,65 @@ Alejandro (Programador principal):
 semana 2:
 Fernando(Diseñador):
 * Crear el diseño general que se usara para base de las de mas paginas( como sera la barra latera, el ancabezado,
- como sera las letras, definir la paleta de colores y estilos globales), tambien separar el iniciar sesion entre alumnos
+ como sera las letras, definir la paleta de colores y estilos globales), tambien separar el iniciar sesion entre alumnos, aspirantes
  y personal institucional
  
 brandoon(Encargado de base de datos):
 *Crear la tabala de alumnos, maestros, personal institucional, aspirantes, carrera y roles
 
 Alejandro (Programador principal): 
-*crear la conexion con la base de datos para asi  y crear la estructura de las carpetas que se usaran
+* crear la conexion con la base de datos para asi  y crear la estructura de las carpetas que se usaran
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 semana 3:
 Fernando(Diseñador): 
 * Crear el apartado de registro para aspirantes y el aspecto de como se captutaran los datos
+* Aspecto de la pagina en donde el personal administrativo vea los aspirantes y pueda ahi selecionar cuales se aceptan
+* Aspecto de la pagina donde el personal administrativo (docenetes) puedan capturar las calificaciones por unidad y final
 
 brandoon(Encargado de base de datos):
 *crear tablas de materias, reticula, reticula de materias, Horarios, Boletas 
 
 Alejandro (Programador principal): 
 * conexion entre los datos capturados en aspirantes y la base de datos
+* permitir a los docentes capturar las calificaciones, ya sea por unidad y final
 * crear apartado en el cual el personal institucional pueda aceptar aspirantes convirtiendo los en alumnos
+* crear la logica para que la coordinacion pueda realizar horarios sin que los horarios choquen 
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 semana 4:
 Fernando(Diseñador):
 * Dar le un diseño a la reticulo de las materias, horarios y boletas
+* crear apartado en el que el personal institucional (finansas) acepte pagos 
 
 brandoon(Encargado de base de datos):
-* Crear tabla de boletas, tabla de pagos
+*tabla de pagos
 
 Alejandro (Programador principal): 
-* Crear el sistema para capturar 
 * Crear apartado para que el alumno pueda ver la reticula de materias, horarios y bolestas
-* crear apartado en el que el personal institucional acepte pagos 
+* crear apartado en el que el personal institucional (finansas) acepte pagos 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 semana 5:
 Fernando(Diseñador):
+*Formatos de Reporte: Diseñar la vista de impresión para las listas de asistencia que los docentes deben generar.
+*general la vista de boleta (kardex) y un boton para imprimir la
 
 brandoon(Encargado de base de datos):
 
-Alejandro (Programador principal): 
+Alejandro (Programador principal):
+* permitir a la persona que sea cordinador de la carrear poder realizar cambios o bajas de horario
+* Implementar el sistema de Control de Asistencia, permitiendo que los docentes generen e impriman las listas de sus grupos.
+
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Semana 6:
+Fernando(Diseñador):
+
+brandoon(Encargado de base de datos):
+
+Alejandro (Programador principal):
+* Programar la lógica de captura de calificaciones que distinga entre el tipo de evaluación (Ordinaria o Especial).
+* hacer que el boton de imprimir kardex funcione y permita descagar en pdf el kardex
