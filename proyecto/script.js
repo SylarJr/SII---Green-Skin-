@@ -17,6 +17,25 @@ document.getElementById('login-form_admin').addEventListener('submit', function(
     
 });
 
+function switchTab(role, selectedBtn) {
+    // 1. Ocultar todos los formularios
+    const forms = document.querySelectorAll('.login-form');
+    forms.forEach(form => form.classList.remove('active'));
+
+    // 2. Quitar el estado activo de todos los botones
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+
+    // 3. Mostrar el formulario correspondiente
+    const targetForm = document.getElementById(`form-${role}`);
+    if (targetForm) {
+        targetForm.classList.add('active');
+    }
+
+    // 4. Marcar el botón clickeado como activo
+    selectedBtn.classList.add('active');
+}
+
 document.getElementById('login-form_alumno').addEventListener('submit', function(event) {
     event.preventDefault(); // Evita que la página se recargue
 
