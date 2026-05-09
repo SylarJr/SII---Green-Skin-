@@ -15,6 +15,7 @@
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab('admin', this)">Personal</button>
                 <button class="tab-btn" onclick="switchTab('alumno', this)">Alumnos</button>
+                <button class="tab-btn" onclick="switchTab('aspirante', this)">Aspirantes</button>
             </div>
         </div>
 
@@ -43,6 +44,24 @@
             </div>
             <button type="submit" class="submit-btn">Entrar como Alumno</button>
         </form>
+
+  <form id="form-aspirante" class="login-form">
+            <div class="input-group">
+                <label>CURP</label>
+                <!-- Usamos maxlength="18" para que solo quepan los caracteres de la CURP -->
+                <input type="text" placeholder="Ingresa tu CURP" maxlength="18" style="text-transform: uppercase;" required>
+            </div>
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" placeholder="********" required>
+            </div>
+            <button type="submit" class="submit-btn">Ingresar</button>
+            <br>
+            <button type="button" class="submit-btn">Nueva solicitud</button>
+               </br>
+            <button type="button" class="submit-btn">Recuperar contraseña</button>
+        </form>
+
     </div>
 
     <script src="script.js"></script>
