@@ -167,3 +167,16 @@ body {
 
 .submit-btn:hover { background-color: #11a628;
      transform: translateY(-1px);}
+
+
+.button-group {
+    display: flex;
+    gap: 15px;         
+    justify-content: center; 
+    margin-top: 20px;
+}
+
+.button-group a, .button-group button {
+    flex: 1;              
+    max-width: 150px;     
+}     
