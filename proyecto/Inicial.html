@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <script>
         if (sessionStorage.getItem('sesion_activa') === 'true') {
-            if (sessionStorage.getItem('rol_usuario') === 'alumno') {
+            const rol = sessionStorage.getItem('rol_usuario');
+            if (rol === 'alumno') {
                 window.location.replace('alumnos/alumnos.html');
+            } else if (rol === 'profesor') {
+                window.location.replace('profesores/profesores.html');
+            } else if (rol === 'aspirante') {
+                window.location.replace('aspirantes/aspirantes.html');
             }
         }
     </script>
@@ -60,7 +65,7 @@
             </div>
             <button type="submit" class="submit-btn">Ingresar</button>
             <br>
-            <a href="aspirantes/aspirantes.html">
+            <a href="aspirantes/aspirantesVista.html">
                 <button type="button" class="submit-btn">Nueva solicitud</button>
             </a>
             <br>

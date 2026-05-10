@@ -1,8 +1,30 @@
 <html>
     <head>
         <title>Profesores</title>
+        <script>
+       function verificarSesion() {
+           
+            if (sessionStorage.getItem('sesion_activa') !== 'true' || sessionStorage.getItem('rol_usuario') !== 'profesor') {
+                window.location.replace('../Inicial.html'); 
+            }
+        }
+        verificarSesion();
+        
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                verificarSesion();
+            }
+        });
+    </script>
     </head>
     <body>
         <h1>Aqui ira la vista inicial de profesores</h1>
     </body>
+
+    <script>
+        function cerrarSesion() {
+    sessionStorage.clear();
+    window.location.replace('../Inicial.html');
+}
+    </script>
 </html>

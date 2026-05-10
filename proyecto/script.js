@@ -16,9 +16,8 @@ document.getElementById('form-admin').addEventListener('submit', async function(
         if (error) throw error;
 
         if (data && data.length > 0) {
-            // Guardamos la sesión
             sessionStorage.setItem('sesion_activa', 'true');
-            sessionStorage.setItem('rol_usuario', 'personal');
+            sessionStorage.setItem('rol_usuario', 'profesor'); 
             sessionStorage.setItem('usuario', user);
             
             alert('Inicio de sesión correcto');
