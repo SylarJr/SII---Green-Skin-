@@ -1,3 +1,7 @@
+/* =========================================
+   1. CONFIGURACIÓN GLOBAL
+   (Márgenes, fuentes y tamaños base)
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -11,12 +15,17 @@ html, body {
     overflow-x: hidden; 
 }
 
+/* =========================================
+   2. FONDO ANIMADO
+   (Cambia los colores y la velocidad aquí)
+   ========================================= */
 body {
     display: flex;
     flex-direction: column; 
+    /* Cambia estos colores para un ambiente distinto */
     background: linear-gradient(-45deg, #053005, #168743, #1b4d5f, #133930);
     background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
+    animation: gradientAnimation 15s ease infinite; /* 15s es la velocidad */
     background-attachment: fixed;
 }
 
@@ -26,9 +35,12 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+/* =========================================
+   3. BARRA DE NAVEGACIÓN (NAVBAR)
+   ========================================= */
 .navbar {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1); /* Transparencia */
+    backdrop-filter: blur(10px); /* Desenfoque tipo cristal */
     -webkit-backdrop-filter: blur(10px);
     padding: 1rem 2rem;
     width: 100%;
@@ -42,7 +54,7 @@ body {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 30px; /* Espacio entre botones del menú */
 }
 
 .nav-links a {
@@ -53,31 +65,32 @@ body {
 }
 
 .nav-links a:hover {
-    color: #34db53;
+    color: #34db53; /* Color al pasar el cursor */
 }
 
-/*/////////////////////////////////////////////////////*/
+/* =========================================
+   4. MENÚS DESPLEGABLES (DROPDOWNS)
+   ========================================= */
 .dropdown { 
     position: relative; 
     display: inline-block;
 }
 
 .dropdown-content {
-display: none;
+    display: none;
     position: absolute;
     background: rgba(255, 255, 255, 0.95);
     min-width: 200px;
     box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
     border-radius: 8px;
-    
     top: 100%; 
     left: 0;
-    
     list-style: none;
     overflow: hidden;
     z-index: 1001; 
 }
 
+/* Puente invisible para que no se cierre el menú */
 .dropdown-content::before {
     content: "";
     position: absolute;
@@ -94,18 +107,18 @@ display: none;
     text-decoration: none;
     font-size: 0.9rem;
     transition: 0.2s;
-    cursor: pointer; 
 }
 
 .dropdown-content li a:hover {
-  background-color: #e8f5e9;
+    background-color: #e8f5e9; /* Fondo de la opción elegida */
     color: #265b17;
 }
 
 .dropdown:hover .dropdown-content {
-     display: block;
-     }
+    display: block;
+}
 
+/* Animación de la flecha */
 .arrow {
     display: inline-block; 
     margin-left: 5px;
@@ -115,11 +128,11 @@ display: none;
 
 .dropdown:hover .arrow {
     transform: rotate(180deg);
-    color: #34db53; 
 }
 
-/*//////////////////////////////////// */
-
+/* =========================================
+   5. CONTENEDOR PRINCIPAL Y TARJETAS
+   ========================================= */
 .main-content {
     flex: 1;
     display: flex;
@@ -129,18 +142,21 @@ display: none;
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.88); /* Opacidad del cuadro blanco */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 2.5rem;
-    border-radius: 20px;
+    border-radius: 20px; /* Redondeado de esquinas */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     width: 100%;
-    max-width: 400px;
+    max-width: 450px; /* Ancho máximo del cuadro */
     border: 1px solid rgba(255, 255, 255, 0.2);
     text-align: center;
 }
 
+/* =========================================
+   6. PESTAÑAS (TABS) Y FORMULARIOS
+   ========================================= */
 .tabs {
     display: flex;
     border-bottom: 2px solid #ddd;
@@ -159,37 +175,46 @@ display: none;
 }
 
 .tab-btn.active {
-    border-bottom: 3px solid #34db53;
+    border-bottom: 3px solid #34db53; /* Color de la línea activa */
     color: #1a5c24;
     font-weight: bold;
 }
 
-.login-form { display: none; 
+.login-form { 
+    display: none; 
     flex-direction: column; 
-    text-align: left; }
+    text-align: left; 
+}
 
 .login-form.active { 
-    display: flex; }
+    display: flex; 
+}
 
+/* =========================================
+   7. INPUTS Y BOTONES
+   ========================================= */
 .input-group { 
-    margin-bottom: 1.2rem;}
+    margin-bottom: 1.2rem;
+}
 
 .input-group label { 
     display: block;
-     margin-bottom: 5px; 
-     font-size: 0.85rem; 
-     font-weight: 600; 
+    margin-bottom: 5px; 
+    font-size: 0.85rem; 
+    font-weight: 600; 
 }
 
 .input-group input {
-     width: 100%;
-      padding: 10px;
-       border: 1px solid #ccc;
-        border-radius: 6px;
-         transition: 0.3s;}
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    transition: 0.3s;
+}
 
+/* Botones Principales */
 .submit-btn {
-    background-color: #265b17;
+    background-color: #265b17; /* Verde institucional */
     color: white;
     padding: 12px;
     border: none;
@@ -200,18 +225,20 @@ display: none;
     width: 100%;
 }
 
-.submit-btn:hover { background-color: #11a628;
-     transform: translateY(-1px);}
+.submit-btn:hover { 
+    background-color: #11a628; /* Verde más brillante al pasar mouse */
+    transform: translateY(-1px);
+}
 
-
+/* Grupo de botones (Cancelar/Continuar) */
 .button-group {
     display: flex;
-    gap: 15px;         
+    gap: 15px; 
     justify-content: center; 
     margin-top: 20px;
 }
 
 .button-group a, .button-group button {
-    flex: 1;              
-    max-width: 150px;     
-}     
+    flex: 1; 
+    max-width: 150px; 
+}
