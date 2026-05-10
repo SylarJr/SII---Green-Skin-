@@ -23,13 +23,11 @@
 
             <form action="#" method="POST" class="login-form active">
                 
-                <!-- Sección CURP -->
                 <div class="input-group">
                     <label for="curp">CURP</label>
                     <input type="text" id="curp" name="curp" maxlength="18" placeholder="Ingresa 18 caracteres" required style="text-transform: uppercase;">
                 </div>
 
-                <!-- Sección Nombre Completo -->
                 <div class="form-row">
                     <div class="input-group">
                         <label for="paterno">Apellido Paterno</label>
@@ -45,7 +43,6 @@
                     <input type="text" id="nombre" name="nombre" required>
                 </div>
 
-                <!-- Sección Contacto -->
                 <div class="form-row">
                     <div class="input-group">
                         <label for="tel">Teléfono Móvil</label>
@@ -57,8 +54,7 @@
                     </div>
                 </div>
 
-                <!-- Nivel Académico (Radio Buttons) -->
-                            <div class="input-group">
+                <div class="input-group">
                     <label>Nivel deseado a ingresar</label>
                     <div class="radio-group-horizontal">
                         <label class="radio-card">
@@ -72,14 +68,13 @@
                     </div>
                 </div>  
 
-                <!-- Campus (Select) -->
                 <div class="input-group">
                     <label for="campus">Campus al que deseas ingresar</label>
                     <select id="campus" name="campus" class="select-input" required>
                         <option value="" disabled selected>Selecciona un campus</option>
-                        <option value="opcion1">Campus Los Mochis</option>
-                        <option value="opcion2">Campus: Villa de Ahome</option>
-                        <option value="opcion3">Campus: El Fuerte</option>
+                        <option value="Campus Los Mochis">Campus Los Mochis</option>
+                        <option value="Campus Villa de Ahome">Campus: Villa de Ahome</option>
+                        <option value="Campus El Fuerte">Campus: El Fuerte</option>
                     </select>
                 </div>
 
@@ -89,6 +84,12 @@
             </form>
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="../conexion_db.js"></script> 
+    
+    <script src="registro_aspirante.js"></script>
 
 </body>
 </html>

@@ -1,42 +1,46 @@
 // === LÓGICA PARA PERSONAL ADMINISTRATIVO ===
 document.getElementById('form-admin').addEventListener('submit', async function(event) {
     event.preventDefault(); 
+    console.log("Iniciando proceso de login de personal...");
 
     var user = document.getElementById('admin_usuario').value;
     var pass = document.getElementById('admin_pass').value;
 
     try {
-        // Usamos supabaseClient
         const { data, error } = await supabaseClient
-            .from('Personal Institucional') 
+            .from('personal_institucional') // Tabla en minúsculas
             .select('*')
-            .eq('Usuario', user)
-            .eq('Contrasena', pass);
+            .eq('usuario', user)       // Columna en minúsculas
+            .eq('contrasena', pass);   // Columna en minúsculas
 
         if (error) throw error;
 
         if (data && data.length > 0) {
+            // Guardamos la sesión
+            sessionStorage.setItem('sesion_activa', 'true');
+            sessionStorage.setItem('rol_usuario', 'personal');
+            sessionStorage.setItem('usuario', user);
+            
             alert('Inicio de sesión correcto');
-            window.location.href = 'dashboard.html'; 
+            window.location.replace('profesores/profesores.html'); 
         } else {
             alert('Usuario o contraseña incorrectos');
         }
     } catch (error) {
-        console.error('Error de conexión:', error.message);
+        alert('Ups, error de conexión: ' + error.message);
+        console.error('Error detallado:', error);
     }
 });
 
 // === LÓGICA PARA ALUMNOS ===
 document.getElementById('form-alumno').addEventListener('submit', async function(event) {
     event.preventDefault(); 
-    
     console.log("Iniciando proceso de login de alumno...");
 
     var matricula = document.getElementById('alumno_matricula').value;
     var pass = document.getElementById('alumno_pass').value;
 
     try {
-        // Usamos supabaseClient
         const { data, error } = await supabaseClient
             .from('alumno') 
             .select('*')
@@ -49,8 +53,9 @@ document.getElementById('form-alumno').addEventListener('submit', async function
             sessionStorage.setItem('sesion_activa', 'true');
             sessionStorage.setItem('rol_usuario', 'alumno');
             sessionStorage.setItem('matricula', matricula);
+            
             alert('Inicio de sesión correcto');
-            window.location.replace('alumnos/alumnos.html'); // Tu ruta correcta
+            window.location.replace('alumnos/alumnos.html');
         } else {
             alert('Matrícula o contraseña incorrectas');
         }
@@ -63,30 +68,38 @@ document.getElementById('form-alumno').addEventListener('submit', async function
 // === LÓGICA PARA ASPIRANTES ===
 document.getElementById('form-aspirante').addEventListener('submit', async function(event) {
     event.preventDefault(); 
+    console.log("Iniciando proceso de login de aspirante...");
 
     var curp = document.getElementById('aspirante_curp').value.toUpperCase();
     var pass = document.getElementById('aspirante_pass').value;
 
     try {
-        // Usamos supabaseClient
         const { data, error } = await supabaseClient
-            .from('Aspirantes') 
+            .from('aspirantes')        // Tabla en minúsculas
             .select('*')
-            .eq('CURP', curp)
-            .eq('Contrasena', pass);
+            .eq('curp', curp)          // Columna en minúsculas
+            .eq('contrasena', pass);   // Columna en minúsculas
 
         if (error) throw error;
 
         if (data && data.length > 0) {
+            // Guardamos la sesión
+            sessionStorage.setItem('sesion_activa', 'true');
+            sessionStorage.setItem('rol_usuario', 'aspirante');
+            sessionStorage.setItem('curp', curp);
+            
             alert('Inicio de sesión correcto');
-            window.location.href = 'dashboard.html'; 
+            window.location.replace('aspirantes/aspirantes.html'); // Ruta corregida
         } else {
             alert('CURP o contraseña incorrectas');
         }
     } catch (error) {
-        console.error('Error de conexión:', error.message);
+        alert('Ups, error de conexión: ' + error.message);
+        console.error('Error detallado:', error);
     }
 });
+
+// === LÓGICA PARA REGISTRAR ASPIRANTES ===
 
 // === FUNCIONES DE INTERFAZ ===
 function switchTab(role, selectedBtn) {
