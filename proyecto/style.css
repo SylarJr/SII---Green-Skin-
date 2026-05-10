@@ -242,3 +242,53 @@ body {
     flex: 1; 
     max-width: 150px; 
 }
+/* =========================================
+   8. ESTILOS DE TABLAS (CALIFICACIONES)
+   ========================================= */
+
+/* Versión ancha de la tarjeta para tablas */
+.glass-card-wide {
+    max-width: 900px; /* Más ancho para que quepa la tabla */
+    width: 95%;
+}
+
+.table-container {
+    overflow-x: auto; /* Permite scroll si la pantalla es muy chica */
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+}
+
+.grades-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.grades-table th {
+    background-color: rgba(38, 91, 23, 0.1);
+    color: #1a5c24;
+    padding: 15px;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+.grades-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+/* Estilo de los inputs dentro de la tabla */
+.grades-table input[type="number"] {
+    width: 70px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Efecto al pasar el mouse por la fila */
+.grades-table tr:hover {
+    background-color: rgba(52, 219, 83, 0.05);
+}
