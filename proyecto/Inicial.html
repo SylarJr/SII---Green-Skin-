@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        if (sessionStorage.getItem('sesion_activa') === 'true') {
+            if (sessionStorage.getItem('rol_usuario') === 'alumno') {
+                window.location.replace('alumnos/alumnos.html');
+            }
+        }
+    </script>
 </head>
 <body class="main-content">
 

@@ -46,8 +46,11 @@ document.getElementById('form-alumno').addEventListener('submit', async function
         if (error) throw error;
 
         if (data && data.length > 0) {
+            sessionStorage.setItem('sesion_activa', 'true');
+            sessionStorage.setItem('rol_usuario', 'alumno');
+            sessionStorage.setItem('matricula', matricula);
             alert('Inicio de sesión correcto');
-            window.location.href = 'alumnos/alumnos.html'; // Tu ruta correcta
+            window.location.replace('alumnos/alumnos.html'); // Tu ruta correcta
         } else {
             alert('Matrícula o contraseña incorrectas');
         }
