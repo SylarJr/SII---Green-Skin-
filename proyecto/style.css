@@ -292,3 +292,100 @@ body {
 .grades-table tr:hover {
     background-color: rgba(52, 219, 83, 0.05);
 }
+/* =========================================
+   9. ESTILOS DE FORMULARIO DE REGISTRO
+   ========================================= */
+
+/* Tamaño extendido para el formulario de aspirantes */
+.registration-card {
+    max-width: 600px;
+    width: 95%;
+}
+
+/* Filas para agrupar campos (Apellidos o Contacto) */
+.form-row {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.form-row .input-group {
+    flex: 1;
+}
+
+/* --- Diseño de Niveles (Radio Cards Horizontales) --- */
+.radio-group-horizontal {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    margin-bottom: 1rem;
+}
+
+.radio-card {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-card input[type="radio"] {
+    position: absolute;
+    opacity: 0; /* Ocultamos el círculo estándar */
+}
+
+.radio-label {
+    display: block;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #444;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+/* Efecto cuando se selecciona el nivel */
+.radio-card input[type="radio"]:checked + .radio-label {
+    border-color: #34db53;
+    background: rgba(52, 219, 83, 0.15);
+    color: #1a5c24;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(52, 219, 83, 0.2);
+}
+
+.radio-label:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* --- Estilo para el Menú de Campus (Select) --- */
+.select-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.select-input:focus {
+    border-color: #34db53;
+    outline: none;
+}
+
+/* --- Ajustes de Responsividad --- */
+@media (max-width: 500px) {
+    .form-row, 
+    .radio-group-horizontal {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .radio-card {
+        width: 100%;
+    }
+}

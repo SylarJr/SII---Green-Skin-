@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Aspirantes</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#">Ayuda</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card registration-card">
+            <h1>Registro de Aspirante</h1>
+            <p>Completa tus datos cuidadosamente para iniciar tu proceso.</p>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
+
+            <form action="#" method="POST" class="login-form active">
+                
+                <!-- Sección CURP -->
+                <div class="input-group">
+                    <label for="curp">CURP</label>
+                    <input type="text" id="curp" name="curp" maxlength="18" placeholder="Ingresa 18 caracteres" required style="text-transform: uppercase;">
+                </div>
+
+                <!-- Sección Nombre Completo -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="paterno">Apellido Paterno</label>
+                        <input type="text" id="paterno" name="paterno" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="materno">Apellido Materno</label>
+                        <input type="text" id="materno" name="materno" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="nombre">Nombre(s)</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <!-- Sección Contacto -->
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="tel">Teléfono Móvil</label>
+                        <input type="tel" id="tel" name="tel" placeholder="10 dígitos" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" placeholder="ejemplo@correo.com" required>
+                    </div>
+                </div>
+
+                <!-- Nivel Académico (Radio Buttons) -->
+                            <div class="input-group">
+                    <label>Nivel deseado a ingresar</label>
+                    <div class="radio-group-horizontal">
+                        <label class="radio-card">
+                            <input type="radio" name="nivel" value="licenciatura" required>
+                            <span class="radio-label">Licenciatura / Ingeniería</span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="nivel" value="posgrado">
+                            <span class="radio-label">Posgrado</span>
+                        </label>
+                    </div>
+                </div>  
+
+                <!-- Campus (Select) -->
+                <div class="input-group">
+                    <label for="campus">Campus al que deseas ingresar</label>
+                    <select id="campus" name="campus" class="select-input" required>
+                        <option value="" disabled selected>Selecciona un campus</option>
+                        <option value="opcion1">Opcion 1</option>
+                        <option value="opcion2">Opcion 2</option>
+                        <option value="opcion3">Opcion 3</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button type="reset" class="submit-btn" style="background-color: #666;">Limpiar</button>
+                    <button type="submit" class="submit-btn">Registrar Aspirante</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>
