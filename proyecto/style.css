@@ -389,3 +389,65 @@ body {
         width: 100%;
     }
 }
+/* =========================================
+   10. GESTIÓN DE ASPIRANTES (ADMIN)
+   ========================================= */
+
+/* Etiquetas de estado (Badges) */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-badge.pending {
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+/* Contenedor de botones de acción */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.btn-check {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.btn-check.accept {
+    background-color: #28a745; /* Verde éxito */
+}
+
+.btn-check.accept:hover {
+    background-color: #218838;
+    transform: scale(1.1);
+}
+
+.btn-check.reject {
+    background-color: #dc3545; /* Rojo peligro */
+}
+
+.btn-check.reject:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+}
+
+/* Ajuste para que la columna de CURP no se vea amontonada */
+.grades-table td {
+    vertical-align: middle;
+}
