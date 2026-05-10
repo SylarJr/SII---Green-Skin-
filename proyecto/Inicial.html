@@ -21,11 +21,11 @@
         <form id="form-admin" class="login-form active">
             <div class="input-group">
                 <label>Usuario Administrativo</label>
-                <input type="text" placeholder="Ej: admin_01" required>
+                <input type="text" id="admin_usuario" placeholder="Ej: admin_01" required>
             </div>
             <div class="input-group">
                 <label>Contraseña</label>
-                <input type="password" placeholder="********" required>
+                <input type="password" id="admin_pass" placeholder="********" required>
             </div>
             <button type="submit" class="submit-btn">Entrar como Personal</button>
         </form>
@@ -33,35 +33,39 @@
         <form id="form-alumno" class="login-form">
             <div class="input-group">
                 <label>Matrícula</label>
-                <input type="text" placeholder="Tu matrícula" required>
+                <input type="text" id="alumno_matricula" placeholder="Tu matrícula" required>
             </div>
             <div class="input-group">
                 <label>Contraseña</label>
-                <input type="password" placeholder="********" required>
+                <input type="password" id="alumno_pass" placeholder="********" required>
             </div>
             <button type="submit" class="submit-btn">Entrar como Alumno</button>
         </form>
 
-  <form id="form-aspirante" class="login-form">
+        <form id="form-aspirante" class="login-form">
             <div class="input-group">
                 <label>CURP</label>
-                <input type="text" placeholder="Ingresa tu CURP" maxlength="18" style="text-transform: uppercase;" required>
+                <input type="text" id="aspirante_curp" placeholder="Ingresa tu CURP" maxlength="18" style="text-transform: uppercase;" required>
             </div>
             <div class="input-group">
                 <label>Contraseña</label>
-                <input type="password" placeholder="********" required>
+                <input type="password" id="aspirante_pass" placeholder="********" required>
             </div>
             <button type="submit" class="submit-btn">Ingresar</button>
             <br>
             <a href="aspirantes/aspirantes.html">
-            <button type="button" class="submit-btn">Nueva solicitud</button>
+                <button type="button" class="submit-btn">Nueva solicitud</button>
             </a>
-               </br>
+            <br>
             <button type="button" class="submit-btn">Recuperar contraseña</button>
         </form>
 
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="conexion_db.js"></script>
+    
     <script src="script.js"></script>
 </body>
 </html>

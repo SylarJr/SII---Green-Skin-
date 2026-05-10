@@ -1,69 +1,114 @@
-document.getElementById('login-form_admin').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita que la página se recargue
+// === LÓGICA PARA PERSONAL ADMINISTRATIVO ===
+document.getElementById('form-admin').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
 
-    // Obtener valores de los inputs
-    var user = document.getElementById('usuario').value;
-    var pass = document.getElementById('clave').value;
+    var user = document.getElementById('admin_usuario').value;
+    var pass = document.getElementById('admin_pass').value;
 
-    // Validación básica (reemplazar con lógica real de backend)
-    if (user === 'admin' && pass === '12345') {
-        alert('Inicio de sesión correcto');
-        window.location.href = 'dashboard.html'; // Redirigir a otra página
-    } else {
-        alert('Usuario o contraseña incorrectos');
+    try {
+        // Usamos supabaseClient
+        const { data, error } = await supabaseClient
+            .from('Personal Institucional') 
+            .select('*')
+            .eq('Usuario', user)
+            .eq('Contrasena', pass);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+            alert('Inicio de sesión correcto');
+            window.location.href = 'dashboard.html'; 
+        } else {
+            alert('Usuario o contraseña incorrectos');
+        }
+    } catch (error) {
+        console.error('Error de conexión:', error.message);
     }
-
-    
-    
 });
 
-function switchTab(role, selectedBtn) {
- console.log("Cambiando a pestaña:", role); // Esto te avisará si el botón funciona
+// === LÓGICA PARA ALUMNOS ===
+document.getElementById('form-alumno').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+    
+    console.log("Iniciando proceso de login de alumno...");
 
-    // 1. Buscamos todos los formularios y botones
+    var matricula = document.getElementById('alumno_matricula').value;
+    var pass = document.getElementById('alumno_pass').value;
+
+    try {
+        // Usamos supabaseClient
+        const { data, error } = await supabaseClient
+            .from('alumno') 
+            .select('*')
+            .eq('no_control', matricula) 
+            .eq('contrasena', pass);     
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+            alert('Inicio de sesión correcto');
+            window.location.href = 'alumnos/alumnos.html'; // Tu ruta correcta
+        } else {
+            alert('Matrícula o contraseña incorrectas');
+        }
+    } catch (error) {
+        alert('Ups, error de conexión: ' + error.message);
+        console.error('Error detallado:', error);
+    }
+});
+
+// === LÓGICA PARA ASPIRANTES ===
+document.getElementById('form-aspirante').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+
+    var curp = document.getElementById('aspirante_curp').value.toUpperCase();
+    var pass = document.getElementById('aspirante_pass').value;
+
+    try {
+        // Usamos supabaseClient
+        const { data, error } = await supabaseClient
+            .from('Aspirantes') 
+            .select('*')
+            .eq('CURP', curp)
+            .eq('Contrasena', pass);
+
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+            alert('Inicio de sesión correcto');
+            window.location.href = 'dashboard.html'; 
+        } else {
+            alert('CURP o contraseña incorrectas');
+        }
+    } catch (error) {
+        console.error('Error de conexión:', error.message);
+    }
+});
+
+// === FUNCIONES DE INTERFAZ ===
+function switchTab(role, selectedBtn) {
     const forms = document.querySelectorAll('.login-form');
     const buttons = document.querySelectorAll('.tab-btn');
 
-    // 2. Limpiamos todo (ocultamos formularios y quitamos brillo a botones)
     forms.forEach(f => f.classList.remove('active'));
     buttons.forEach(b => b.classList.remove('active'));
 
-    // 3. Activamos lo que corresponde
-    // El ID del formulario DEBE ser "form-XXXX"
     const targetForm = document.getElementById('form-' + role);
     
     if (targetForm) {
         targetForm.classList.add('active');
         selectedBtn.classList.add('active');
-    } else {
-        console.error("No se encontró el formulario con ID: form-" + role);
     }
 }
 
-document.getElementById('login-form_alumno').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita que la página se recargue
-
-    // Obtener valores de los inputs
-    var user = document.getElementById('usuario').value;
-    var pass = document.getElementById('clave').value;
-
-    // Validación básica (reemplazar con lógica real de backend)
-    if (user === 'admin' && pass === '12345') {
-        alert('Inicio de sesión correcto');
-        window.location.href = 'dashboard.html'; // Redirigir a otra página
-    } else {
-        alert('Usuario o contraseña incorrectos');
-    }
-});
-
 function mostrarFormulario(formId) {
-        var formularios = document.querySelectorAll('.form-container');
-        formularios.forEach(function(form) {
-            form.classList.remove('active');
-        });
+    var formularios = document.querySelectorAll('.form-container');
+    formularios.forEach(function(form) {
+        form.classList.remove('active');
+    });
 
-        var formSeleccionado = document.getElementById(formId);
-        if (formSeleccionado) {
-            formSeleccionado.classList.add('active');
-        }
-    };
+    var formSeleccionado = document.getElementById(formId);
+    if (formSeleccionado) {
+        formSeleccionado.classList.add('active');
+    }
+}
