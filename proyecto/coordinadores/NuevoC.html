@@ -20,7 +20,7 @@
             <h1>Validación de Aspirantes</h1>
             <p style="margin-bottom: 20px;">Revisa la información y selecciona el veredicto para cada solicitud.</p>
 
-            <div class="table-container">
+<div class="table-container">
                 <table class="grades-table">
                     <thead>
                         <tr>
@@ -31,40 +31,14 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td style="font-size: 0.8rem; font-weight: bold;">CURP123456HDFRR</td>
-                            <td>Fernando Bojorquez</td>
-                            <td>Ingeniería - Campus Los Mochis</td>
-                            <td><span class="status-badge pending">Pendiente</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn-check accept" title="Aceptar">✔</button>
-                                    <button class="btn-check reject" title="Rechazar">✖</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="font-size: 0.8rem; font-weight: bold;">CURP987654MDFSS</td>
-                            <td>Maria García Ruiz</td>
-                            <td>Posgrado - Campus: Villa de Ahome</td>
-                            <td><span class="status-badge pending">Pendiente</span></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn-check accept" title="Aceptar">✔</button>
-                                    <button class="btn-check reject" title="Rechazar">✖</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tabla-aspirantes">
+                        </tbody>
                 </table>
             </div>
 
-            <div class="button-group">
-                <button type="button" class="submit-btn">Finalizar Revisión</button>
-            </div>
-        </div>
-    </main>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conexion_db.js"></script> 
+    <script src="gestion_aspirantes.js"></script>
 </body>
 </html>
