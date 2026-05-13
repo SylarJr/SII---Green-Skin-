@@ -81,6 +81,6 @@ Fernando(Diseñador):
 
 brandoon(Encargado de base de datos):
 
-Alejandro (Programador principal):
+Juan(Programador principal):
 * Programar la lógica de captura de calificaciones que distinga entre el tipo de evaluación (Ordinaria o Especial).
 * hacer que el boton de imprimir kardex funcione y permita descagar en pdf el kardex
