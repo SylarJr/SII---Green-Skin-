@@ -40,7 +40,6 @@ Alejandro (Programador principal):
 * conexion entre los datos capturados en aspirantes y la base de datos
 * permitir a los docentes capturar las calificaciones, ya sea por unidad y final
 * crear apartado en el cual el personal institucional pueda aceptar aspirantes convirtiendo los en alumnos
-* crear la logica para que la coordinacion pueda realizar horarios sin que los horarios choquen 
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -49,11 +48,14 @@ Fernando(Diseñador):
 * Dar le un diseño a la reticulo de las materias, horarios y boletas
 * crear apartado en el que el personal institucional (finansas) acepte pagos 
 
-brandoon(Encargado de base de datos):
+Brandoon(Encargado de base de datos/Programador):
 *tabla de pagos
+*Apoyo con la creacion de la logica de la pagina de horarios
+*Apoyo para la creacion del apartado de la visualizacion de la reticula de materias, horarios y boletas del alumno
 
-Alejandro (Programador principal): 
-* Crear apartado para que el alumno pueda ver la reticula de materias, horarios y bolestas
+Juan(Programador principal): 
+* crear la logica para que la coordinacion pueda realizar horarios sin que los horarios choquen 
+* Crear apartado para que el alumno pueda ver la reticula de materias, horarios y boletas
 * crear apartado en el que el personal institucional (finansas) acepte pagos 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,10 +64,13 @@ Fernando(Diseñador):
 *Formatos de Reporte: Diseñar la vista de impresión para las listas de asistencia que los docentes deben generar.
 *general la vista de boleta (kardex) y un boton para imprimir la
 
-brandoon(Encargado de base de datos):
+Brandoon(Encargado de base de datos/Programador):
+*Analisis del estado de la base de datos (Busqueda de errores, agregar contenido faltante de ser necesario, etc.)
+*Apoyo con la habilitacion de las opciones para el coordinador respecto a los horarios
+*Apoyo con la implementacion del sistema de Control de Asistencia
 
-Alejandro (Programador principal):
-* permitir a la persona que sea cordinador de la carrear poder realizar cambios o bajas de horario
+Juan(Programador principal):
+* permitir a la persona que sea coordinador de la carreara poder realizar cambios o bajas de horario
 * Implementar el sistema de Control de Asistencia, permitiendo que los docentes generen e impriman las listas de sus grupos.
 
 
