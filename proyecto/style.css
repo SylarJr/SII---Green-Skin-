@@ -39,7 +39,7 @@ body {
    3. BARRA DE NAVEGACIÓN (NAVBAR)
    ========================================= */
 .navbar {
-    background: rgba(255, 255, 255, 0.1); /* Transparencia */
+    background: rgba(9, 106, 171, 0.899); /* Azul celeste */
     backdrop-filter: blur(10px); /* Desenfoque tipo cristal */
     -webkit-backdrop-filter: blur(10px);
     padding: 1rem 2rem;
