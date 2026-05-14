@@ -1,0 +1,16 @@
+El día de hoy se realizaron las siguientes actividades:
+
+Brandoon: Realizó la tabla de coordinadores en Supabase.
+
+Fernando: Realizó el diseño de la página de docentes, cambio de color de la barra de 
+herramientas, agregó el titulo de la página y la ubicación del style, testeó la página 
+agrreglando los datos que sean necesarios, se agregó la opción "Materia" para los usuarios 
+con rol de aspirante.
+
+Juan: Realizó la organizacion de los archivos de una manera mucho más limpia, y en adicion, 
+los usuarios que se clasifican como personal administrativo ahora son redireccionados a las 
+páginas correspondientes a su rol haciendo uso de la base de datos utilizando 1 apartado 
+para redireccionar a cada usuario independientemente de su rol.
+
+Alejandro: Realizó el cambio de roles en la documentación de las proximas semanas así como cambios 
+y añadidos a las tareas correspondientes de los integrantes.
