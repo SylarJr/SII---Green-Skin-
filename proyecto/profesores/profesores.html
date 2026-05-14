@@ -17,14 +17,47 @@
         });
     </script>
     </head>
+    
     <body>
-        <h1>Aqui ira la vista inicial de profesores</h1>
-    </body>
+            <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/proyecto/coordinadores/profesores.html">Inicio</a></li>
+            
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Herramientas <span class="arrow">▼</span></a>
+                <ul class="dropdown-content">
+                    <li><a href="CapCalificaciones.html">Capturar Calificaciones</a></li>
+                    <li><a href="#">Horario de Clases</a></li>
+                </ul>
+            </li>
 
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Servicios <span class="arrow">▼</span></a>
+                <ul class="dropdown-content">
+                    <li><a href="#">Reinscripción</a></li>
+                    <li><a href="#">Seguro Facultativo</a></li>
+                    <li><a href="#">Servicio Social</a></li>
+                </ul>
+            </li>
+            <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card">
+            <h1>Bienvenido</h1>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
+            <p>Bienvenido al sistema institucional. Utiliza la barra superior para navegar por tus opciones académicas y servicios.</p>
+            <br>
+            <p><strong>Estado:</strong> Maestro</p>
+        </div>
+    </main>
+
+    </body>
     <script>
         function cerrarSesion() {
     sessionStorage.clear();
     window.location.replace('../Inicial.html');
-}
+     }
     </script>
 </html>
