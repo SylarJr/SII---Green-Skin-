@@ -7,21 +7,37 @@ document.getElementById('form-admin').addEventListener('submit', async function(
     var pass = document.getElementById('admin_pass').value;
 
     try {
+        // Consultamos la tabla personal_institucional y traemos el nombre del rol asociado
         const { data, error } = await supabaseClient
-            .from('personal_institucional') // Tabla en minúsculas
-            .select('*')
-            .eq('usuario', user)       // Columna en minúsculas
-            .eq('contrasena', pass);   // Columna en minúsculas
+            .from('personal_institucional')
+            .select('*, roles(nombre_rol)') // Trae la info de la tabla roles unida por id_rol
+            .eq('usuario', user)
+            .eq('contrasena', pass);
 
         if (error) throw error;
 
         if (data && data.length > 0) {
+            // Obtenemos el nombre del rol directamente de la base de datos
+            // Lo pasamos a minúsculas para evitar problemas de mayúsculas/minúsculas (ej. "Coordinador" -> "coordinador")
+            let nombreRol = data[0].roles.nombre_rol.toLowerCase(); 
+
             sessionStorage.setItem('sesion_activa', 'true');
-            sessionStorage.setItem('rol_usuario', 'profesor'); 
+            sessionStorage.setItem('rol_usuario', nombreRol); // Guardamos el rol real que viene de la BD
             sessionStorage.setItem('usuario', user);
             
-            alert('Inicio de sesión correcto');
-            window.location.replace('profesores/profesores.html'); 
+            alert('Inicio de sesión correcto como ' + nombreRol);
+
+            // Redirigimos dependiendo del rol que detectamos en la base de datos
+            if (nombreRol === 'coordinador') {
+                window.location.replace('coordinadores/coordinadores.html');
+            } else if (nombreRol === 'profesor' || nombreRol === 'docente') {
+                window.location.replace('profesores/profesores.html');
+            } else {
+                // Por si en el futuro agregas un rol nuevo y se te olvida poner el redireccionamiento
+                console.log("Rol no tiene una vista asignada:", nombreRol);
+                alert("Bienvenido, pero tu rol no tiene una página asignada aún.");
+            }
+            
         } else {
             alert('Usuario o contraseña incorrectos');
         }
