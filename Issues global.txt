@@ -52,7 +52,7 @@ Brandoon(Encargado de base de datos/Programador):
 *tabla de pagos
 *Apoyo con la creacion de la logica de la pagina de horarios
 *Apoyo para la creacion del apartado de la visualizacion de la reticula de materias, horarios y boletas del alumno
-*ingresar y hacer todas las tablas de las matriculas de las carreras y relacionar las con las materias
+*ingresar y hacer todas las tablas de las reticulas de las carreras y relacionar las con las materias
 
 Juan(Programador principal): 
 * crear la logica para que la coordinacion pueda realizar horarios sin que los horarios choquen 
