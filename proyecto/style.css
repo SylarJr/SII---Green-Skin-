@@ -40,21 +40,43 @@ body {
    ========================================= */
 .navbar {
     background: rgba(9, 106, 171, 0.899); /* Azul celeste */
-    backdrop-filter: blur(10px); /* Desenfoque tipo cristal */
+    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 1rem 2rem;
+    padding: 0.4rem 2rem; /* Ajustado para dar espacio a los logos */
     width: 100%;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: fixed;
     top: 0;
     z-index: 1000;
+    
+    /* Activamos Flexbox en la barra para separar las 3 secciones */
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+/* Contenedores de los extremos (ocupan espacio equilibrado) */
+.navbar-logo-left-container,
+.navbar-logo-right-container {
+    flex: 1; 
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo-left-container { justify-content: flex-start; }
+.navbar-logo-right-container { justify-content: flex-end; }
+
+/* Contenedor del centro (Menu) */
+.nav-links-wrapper {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    justify-content: center;
-    gap: 30px; /* Espacio entre botones del menú */
+    gap: 30px; 
 }
 
 .nav-links a {
@@ -65,7 +87,19 @@ body {
 }
 
 .nav-links a:hover {
-    color: #34db53; /* Color al pasar el cursor */
+    color: #34db53; 
+}
+
+.navbar-left-logo {
+    height: 45px; /* Altura ideal para que no deforme la barra */
+    width: auto;
+    pointer-events: none;
+}
+
+.navbar-right-logo {
+    height: 48px; /* Sello de Los Mochis un poco más visible */
+    width: auto;
+    pointer-events: none;
 }
 
 /* =========================================
@@ -451,3 +485,76 @@ body {
 .grades-table td {
     vertical-align: middle;
 }
+
+/* =========================================
+   11. EFECTO  POP-OUT (SÓLO PÁGINA INICIAL)
+   ========================================= */
+
+/* El contenedor base se acopla al tamaño de la glass-card */
+.container-3d {
+    position: relative;
+    width: 100%;
+    max-width: 450px; /* Mismo ancho máximo de tu glass-card */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Forzamos a la tarjeta a quedarse en la capa intermedia */
+.container-3d .glass-card {
+    position: relative;
+    z-index: 2; /* Capa del medio */
+}
+
+/* Configuración de las imágenes flotantes */
+.img-pop {
+    position: absolute;
+    pointer-events: none; /* Crucial: los clics pasan a través de la imagen sin bloquear los botones */
+    transition: transform 0.4s ease; /* Suavidad de movimiento al pasar el mouse */
+}
+
+/* Ubicación de la imagen que va por DETRÁS (Ej: arriba a la izquierda) */
+.back-part {
+    z-index: 1; /* Capa inferior */
+    top: 50px;
+    left: -170px;
+    width: 190px; /* Cambia este tamaño según tu diseño */
+}
+
+.back-part_2 {
+    z-index: 1; /* Capa inferior */
+    top: -120px;
+    left: 60px;
+    width: 340px; /* Cambia este tamaño según tu diseño */
+}
+
+.front-part {
+    z-index: 3; /* Capa superior (Sobresale) */
+    bottom: 50px;
+    right: -190px;
+    width: 190px; /* Cambia este tamaño según tu diseño */
+}
+
+/* =========================================
+   12. Imagenes de fondo 
+   ========================================= */
+
+.back-part_3 {
+    z-index: 1; /* Capa inferior */
+    top: -120px;
+    left: 0px;
+    width: 100%; /* Cambia este tamaño según tu diseño */
+    height: 400;
+}
+
+.back-part_4 {
+    z-index: 1; /* Capa inferior */
+    top: 650px;
+    left: 0px;
+    width: 100%; /* Cambia este tamaño según tu diseño */
+    height: 400;
+    rotate: 180deg;
+}
+
+/* Ubicación de la imagen que va por DELANTE (Ej: abajo a la derecha) */
+

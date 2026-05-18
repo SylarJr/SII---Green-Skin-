@@ -21,65 +21,72 @@
     </script>
 </head>
 <body class="main-content">
+<div class="container-3d">
+        
+       
+        <img src="Imagenes/background-remover-1778889418685.png" class="img-pop back-part" alt="Decoración Fondo">
+         <img src="Imagenes/images-removebg-preview.png" class="img-pop back-part_2" alt="Decoración Fondo">
 
-    <div class="glass-card">
-        <div class="login-header">
-            <h2>Bienvenido</h2>
-            <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('admin', this)">Personal</button>
-                <button class="tab-btn" onclick="switchTab('alumno', this)">Alumnos</button>
-                <button class="tab-btn" onclick="switchTab('aspirante', this)">Aspirantes</button>
+        <div class="glass-card">
+            <div class="login-header">
+                <h2>Bienvenido</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('admin', this)">Personal</button>
+                    <button class="tab-btn" onclick="switchTab('alumno', this)">Alumnos</button>
+                    <button class="tab-btn" onclick="switchTab('aspirante', this)">Aspirantes</button>
+                </div>
             </div>
+
+            <form id="form-admin" class="login-form active">
+                <div class="input-group">
+                    <label>Usuario Administrativo</label>
+                    <input type="text" id="admin_usuario" placeholder="Ej: admin_01" required>
+                </div>
+                <div class="input-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="admin_pass" placeholder="********" required>
+                </div>
+                <button type="submit" class="submit-btn">Entrar como Personal</button>
+            </form>
+
+            <form id="form-alumno" class="login-form">
+                <div class="input-group">
+                    <label>Matrícula</label>
+                    <input type="text" id="alumno_matricula" placeholder="Tu matrícula" required>
+                </div>
+                <div class="input-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="alumno_pass" placeholder="********" required>
+                </div>
+                <button type="submit" class="submit-btn">Entrar como Alumno</button>
+            </form>
+
+            <form id="form-aspirante" class="login-form">
+                <div class="input-group">
+                    <label>CURP</label>
+                    <input type="text" id="aspirante_curp" placeholder="Ingresa tu CURP" maxlength="18" style="text-transform: uppercase;" required>
+                </div>
+                <div class="input-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="aspirante_pass" placeholder="********" required>
+                </div>
+                <button type="submit" class="submit-btn">Ingresar</button>
+                <br>
+                <a href="aspirantes/aspirantes.html">
+                    <button type="button" class="submit-btn">Nueva solicitud</button>
+                </a>
+                <br>
+                <button type="button" class="submit-btn">Recuperar contraseña</button>
+            </form>
         </div>
 
-        <form id="form-admin" class="login-form active">
-            <div class="input-group">
-                <label>Usuario Administrativo</label>
-                <input type="text" id="admin_usuario" placeholder="Ej: admin_01" required>
-            </div>
-            <div class="input-group">
-                <label>Contraseña</label>
-                <input type="password" id="admin_pass" placeholder="********" required>
-            </div>
-            <button type="submit" class="submit-btn">Entrar como Personal</button>
-        </form>
-
-        <form id="form-alumno" class="login-form">
-            <div class="input-group">
-                <label>Matrícula</label>
-                <input type="text" id="alumno_matricula" placeholder="Tu matrícula" required>
-            </div>
-            <div class="input-group">
-                <label>Contraseña</label>
-                <input type="password" id="alumno_pass" placeholder="********" required>
-            </div>
-            <button type="submit" class="submit-btn">Entrar como Alumno</button>
-        </form>
-
-        <form id="form-aspirante" class="login-form">
-            <div class="input-group">
-                <label>CURP</label>
-                <input type="text" id="aspirante_curp" placeholder="Ingresa tu CURP" maxlength="18" style="text-transform: uppercase;" required>
-            </div>
-            <div class="input-group">
-                <label>Contraseña</label>
-                <input type="password" id="aspirante_pass" placeholder="********" required>
-            </div>
-            <button type="submit" class="submit-btn">Ingresar</button>
-            <br>
-            <a href="aspirantes/aspirantes.html">
-                <button type="button" class="submit-btn">Nueva solicitud</button>
-            </a>
-            <br>
-            <button type="button" class="submit-btn">Recuperar contraseña</button>
-        </form>
+        
+        <img src="Imagenes/background-remover-1778889384066.png" class="img-pop front-part" alt="Decoración Frente">
 
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <script src="conexion_db.js"></script>
-    
     <script src="script.js"></script>
 </body>
 </html>
