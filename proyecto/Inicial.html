@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="style.css">
-   <script>
-        if (sessionStorage.getItem('sesion_activa') === 'true') {
-            const rol = sessionStorage.getItem('rol_usuario');
-            if (rol === 'alumno') {
-                window.location.replace('alumnos/alumnos.html');
-            } else if (rol === 'profesor') {
-                window.location.replace('profesores/profesores.html');
-            } else if (rol === 'aspirante') {
-                window.location.replace('aspirantes/aspirantes.html');
-            } else if (rol === 'coordinador') {
-                window.location.replace('coordinadores/coordinadores.html');
-            }
+<script>
+    if (sessionStorage.getItem('sesion_activa') === 'true') {
+        const rol = sessionStorage.getItem('rol_usuario');
+        if (rol === 'alumno') {
+            window.location.replace('alumnos/alumnos.html');
+        } else if (rol === 'docente') { 
+            window.location.replace('profesores/profesores.html');
+        } else if (rol === 'aspirante') {
+            window.location.replace('aspirantes/aspirantes.html');
+        } else if (rol === 'coordinador') {
+            window.location.replace('coordinadores/coordinadores.html');
         }
-    </script>
+    }
+</script>
 </head>
 <body class="main-content">
 <div class="container-3d">
