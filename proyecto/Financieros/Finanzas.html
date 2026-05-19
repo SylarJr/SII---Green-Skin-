@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanzas - Validación de Pagos</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-logo-left-container">
+            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+        </div>
+        
+        <div class="nav-links-wrapper">
+            <ul class="nav-links">
+                <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-logo-right-container">
+            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+        </div>
+    </nav>
+
+    <main class="main-content" style="padding-top: 120px; padding-bottom: 80px;">
+        <div class="glass-card glass-card-wide">
+            <h1>Validación de Pagos Bancarios</h1>
+            <p style="margin-bottom: 20px;">Revisa los comprobantes, folios y montos cargados para proceder con la liberación del trámite.</p>
+
+            <div class="table-container">
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Alumno / Control</th>
+                            <th>Concepto de Pago</th>
+                            <th>Monto</th>
+                            <th style="text-align: center;">Estado</th>
+                            <th style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-pagos-financiero">
+                        <tr>
+                            <td style="font-weight: bold; color: #1b4d5f;">#F-98432</td>
+                            <td>
+                                <div>Fernando Bojorquez Inzunza</div>
+                                <small style="color: #666;">Control: 21100234</small>
+                            </td>
+                            <td>Expedición de Kardex Semestral</td>
+                            <td style="font-weight: bold;">$150.00</td>
+                            <td style="text-align: center;"><span class="status-badge pending">Pendiente</span></td>
+                            <td style="text-align: center;">
+                                <div class="action-buttons">
+                                    <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98432')">✓</button>
+                                    <button class="btn-check reject" title="Rechazar Pago" onclick="rechazarPagoFinanciero(this, '#F-98432')">✕</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: bold; color: #1b4d5f;">#F-98455</td>
+                            <td>
+                                <div>María López Mendoza</div>
+                                <small style="color: #666;">Control: 21100567</small>
+                            </td>
+                            <td>Inscripción Licenciatura / Sistemas</td>
+                            <td style="font-weight: bold;">$2,800.00</td>
+                            <td style="text-align: center;"><span class="status-badge pending">Pendiente</span></td>
+                            <td style="text-align: center;">
+                                <div class="action-buttons">
+                                    <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98455')">✓</button>
+                                    <button class="btn-check reject" title="Rechazar Pago" onclick="rechazarPagoFinanciero(this, '#F-98455')">✕</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="font-weight: bold; color: #1b4d5f;">#F-98461</td>
+                            <td>
+                                <div>Carlos Angulo Pérez</div>
+                                <small style="color: #666;">Control: 20100112</small>
+                            </td>
+                            <td>Constancia de Estudios con Promedio</td>
+                            <td style="font-weight: bold;">$200.00</td>
+                            <td style="text-align: center;"><span class="status-badge pending">Pendiente</span></td>
+                            <td style="text-align: center;">
+                                <div class="action-buttons">
+                                    <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98461')">✓</button>
+                                    <button class="btn-check reject" title="Rechazar Pago" onclick="rechazarPagoFinanciero(this, '#F-98461')">✕</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conexion_db.js"></script> 
+    <script src="gestion_aspirantes.js"></script> </body>
+</html>
