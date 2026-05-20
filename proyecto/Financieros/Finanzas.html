@@ -27,7 +27,14 @@
     <main class="main-content" style="padding-top: 120px; padding-bottom: 80px;">
         <div class="glass-card glass-card-wide">
             <h1>Validación de Pagos Bancarios</h1>
-            <p style="margin-bottom: 20px;">Revisa los comprobantes, folios y montos cargados para proceder con la liberación del trámite.</p>
+            <p style="margin-bottom: 25px;">Selecciona una categoría para revisar y procesar los comprobantes cargados.</p>
+
+            <div class="tabs-finanzas">
+                <button class="tab-financiero-btn active" onclick="filtrarCategoriaFinanzas('todos', this)">Todos</button>
+                <button class="tab-financiero-btn" onclick="filtrarCategoriaFinanzas('kardex', this)">Kardex</button>
+                <button class="tab-financiero-btn" onclick="filtrarCategoriaFinanzas('inscripcion', this)">Inscripciones</button>
+                <button class="tab-financiero-btn" onclick="filtrarCategoriaFinanzas('constancia', this)">Constancias</button>
+            </div>
 
             <div class="table-container">
                 <table class="grades-table">
@@ -38,11 +45,11 @@
                             <th>Concepto de Pago</th>
                             <th>Monto</th>
                             <th style="text-align: center;">Estado</th>
-                            <th style="text-align: center;">Acciones</th>
+                            <th style="text-align: center;">Validación</th>
                         </tr>
                     </thead>
                     <tbody id="tabla-pagos-financiero">
-                        <tr>
+                        <tr data-categoria="kardex">
                             <td style="font-weight: bold; color: #1b4d5f;">#F-98432</td>
                             <td>
                                 <div>Fernando Bojorquez Inzunza</div>
@@ -54,12 +61,11 @@
                             <td style="text-align: center;">
                                 <div class="action-buttons">
                                     <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98432')">✓</button>
-                                    <button class="btn-check reject" title="Rechazar Pago" onclick="rechazarPagoFinanciero(this, '#F-98432')">✕</button>
                                 </div>
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr data-categoria="inscripcion">
                             <td style="font-weight: bold; color: #1b4d5f;">#F-98455</td>
                             <td>
                                 <div>María López Mendoza</div>
@@ -71,12 +77,11 @@
                             <td style="text-align: center;">
                                 <div class="action-buttons">
                                     <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98455')">✓</button>
-                                    <button class="btn-check reject" title="Rechazar Pago" onclick="rechazarPagoFinanciero(this, '#F-98455')">✕</button>
                                 </div>
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr data-categoria="constancia">
                             <td style="font-weight: bold; color: #1b4d5f;">#F-98461</td>
                             <td>
                                 <div>Carlos Angulo Pérez</div>
@@ -88,7 +93,6 @@
                             <td style="text-align: center;">
                                 <div class="action-buttons">
                                     <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98461')">✓</button>
-                                    <button class="btn-check reject" title="Rechazar Pago" onclick="rechazarPagoFinanciero(this, '#F-98461')">✕</button>
                                 </div>
                             </td>
                         </tr>
@@ -101,5 +105,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../conexion_db.js"></script> 
-    <script src="gestion_aspirantes.js"></script> </body>
+    <script src="/proyecto/script.js"></script>
+</body>
 </html>
