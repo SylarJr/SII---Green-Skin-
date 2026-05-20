@@ -5,3 +5,9 @@
 _19 de Mayo del 2026_
 - *Se elimino la tabla de Matricula (Es Innecesaria)*
 - *Inserte datos en las tablas ("Carrera", "Materia", "Reticula", "Reticula_Materia")* Hora: 8:50 AM
+
+- *Cree la tabla de especialidad y la tabla intermedia entre Materia y Especialidad* Hora: 3:54 PM
+- *Inserte los datios en las tablas ("Especialidad", "Materia_Especialidad")* Hora: 3:54 PM
+Las tablas de "Especialidad" y "Materia_Especialidad" se crearon para poder asignar materias a las especialidades,
+ya que cada carrera puede tener varias especialidades y cada especialidad puede tener varias materias.
+Esto permitirá una mejor organización y gestión de la información académica en el sistema.
