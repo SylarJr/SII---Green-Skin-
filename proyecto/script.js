@@ -143,3 +143,24 @@ function mostrarFormulario(formId) {
         formSeleccionado.classList.add('active');
     }
 }
+
+// === FUNCIONES PARA FINANZAS ===
+function filtrarCategoriaFinanzas(categoria, botonSeleccionado) {
+    // 1. Alternar la clase 'active' en los botones de las pestañas
+    const botones = document.querySelectorAll('.tab-financiero-btn');
+    botones.forEach(btn => btn.classList.remove('active'));
+    botonSeleccionado.classList.add('active');
+
+    // 2. Filtrar las filas de la tabla por el atributo 'data-categoria'
+    const filas = document.querySelectorAll('#tabla-pagos-financiero tr');
+    
+    filas.forEach(fila => {
+        const categoriaFila = fila.getAttribute('data-categoria');
+        
+        if (categoria === 'todos' || categoriaFila === categoria) {
+            fila.style.display = ''; // Muestra la fila (vuelve al estado original por defecto de la tabla)
+        } else {
+            fila.style.display = 'none'; 
+        }
+    });
+}

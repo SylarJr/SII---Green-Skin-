@@ -557,4 +557,51 @@ body {
 }
 
 /* Ubicación de la imagen que va por DELANTE (Ej: abajo a la derecha) */
+/* ==========================================================================
+   13. COMPONENTES DEL MÓDULO FINANCIERO (PESTAÑAS DE VALIDACIÓN)
+   ========================================================================== */
 
+/* Contenedor lineal de las pestañas */
+.tabs-finanzas {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 12px;
+    flex-wrap: wrap; /* Evita que se amontonen en pantallas chicas */
+}
+
+/* Botones individuales de categoría */
+.tab-financiero-btn {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #ccd1d9;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    transition: all 0.25s ease-in-out;
+}
+
+/* Efecto Hover */
+.tab-financiero-btn:hover {
+    background: rgba(27, 77, 95, 0.08);
+    color: #1b4d5f;
+    border-color: #1b4d5f;
+    transform: translateY(-1px);
+}
+
+/* Estado Activo (Pestaña seleccionada) */
+.tab-financiero-btn.active {
+    background: #1b4d5f; /* Azul oscuro elegante de tu paleta */
+    color: #ffffff;
+    border-color: #1b4d5f;
+    box-shadow: 0 4px 12px rgba(27, 77, 95, 0.25);
+}
+
+/* Corrección de opacidad suave para filas procesadas */
+#tabla-pagos-financiero tr {
+    transition: opacity 0.4s ease, background-color 0.3s ease;
+}
