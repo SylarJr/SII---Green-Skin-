@@ -1,167 +1,130 @@
-/* ==========================================================================
-   1. CONFIGURACIÓN GLOBAL DE SUPABASE
-   ========================================================================== */
-const supabaseUrl = 'https://kwgtsplpgbjpmukbugvc.supabase.co';
-const supabaseKey = 'sb_publishable_CjrhdIkcRfb1enFcpTTQAA_1fFryjoW';
-let supabaseClient = null;
+// === LÓGICA PARA PERSONAL ADMINISTRATIVO ===
+document.getElementById('form-admin').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+    console.log("Iniciando proceso de login de personal...");
 
-// Inicialización segura del cliente Supabase
-if (typeof supabase !== 'undefined' && !window.supabaseClient) {
-    window.supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-}
-supabaseClient = window.supabaseClient || null;
+    var user = document.getElementById('admin_usuario').value;
+    var pass = document.getElementById('admin_pass').value;
 
+    try {
+        // Consultamos la tabla personal_institucional y traemos el nombre del rol asociado
+        const { data, error } = await supabaseClient
+            .from('personal_institucional')
+            .select('*, roles(nombre_rol)') // Trae la info de la tabla roles unida por id_rol
+            .eq('usuario', user)
+            .eq('contrasena', pass);
 
-/* ==========================================================================
-   2. CONTROL DE SESIÓN GENERAL
-   ========================================================================== */
-function cerrarSesion() {
-    sessionStorage.clear();
-    // Si estás dentro de una subcarpeta (ej. alumnos/ o coordinadores/), sube un nivel
-    if (window.location.pathname.includes('/alumnos/') || 
-        window.location.pathname.includes('/coordinadores/') || 
-        window.location.pathname.includes('/aspirantes/')) {
-        window.location.replace('../Inicial.html');
-    } else {
-        window.location.replace('Inicial.html');
+        if (error) throw error;
+
+        if (data && data.length > 0) {
+            // Obtenemos el nombre del rol directamente de la base de datos
+            // Lo pasamos a minúsculas para evitar problemas de mayúsculas/minúsculas (ej. "Coordinador" -> "coordinador")
+            let nombreRol = data[0].roles.nombre_rol.toLowerCase(); 
+
+            sessionStorage.setItem('sesion_activa', 'true');
+            sessionStorage.setItem('rol_usuario', nombreRol); // Guardamos el rol real que viene de la BD
+            sessionStorage.setItem('usuario', user);
+            
+            alert('Inicio de sesión correcto como ' + nombreRol);
+
+            // Redirigimos dependiendo del rol que detectamos en la base de datos
+            if (nombreRol === 'coordinador') {
+                window.location.replace('coordinadores/coordinadores.html');
+            } else if (nombreRol === 'profesor' || nombreRol === 'docente') {
+                window.location.replace('profesores/profesores.html');
+            } else {
+                // Por si en el futuro agregas un rol nuevo y se te olvida poner el redireccionamiento
+                console.log("Rol no tiene una vista asignada:", nombreRol);
+                alert("Bienvenido, pero tu rol no tiene una página asignada aún.");
+            }
+            
+        } else {
+            alert('Usuario o contraseña incorrectos');
+        }
+    } catch (error) {
+        alert('Ups, error de conexión: ' + error.message);
+        console.error('Error detallado:', error);
     }
-}
+});
 
+// === LÓGICA PARA ALUMNOS ===
+document.getElementById('form-alumno').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+    console.log("Iniciando proceso de login de alumno...");
 
-/* ==========================================================================
-   3. SISTEMA DE AUTENTICACIÓN (LOGIN)
-   ========================================================================== */
+    var matricula = document.getElementById('alumno_matricula').value;
+    var pass = document.getElementById('alumno_pass').value;
 
-// --- Login para Personal Administrativo ---
-const formAdmin = document.getElementById('form-admin');
-if (formAdmin) {
-    formAdmin.addEventListener('submit', async function(event) {
-        event.preventDefault(); 
-        console.log("Iniciando proceso de login de personal...");
+    try {
+        const { data, error } = await window.supabaseClient // Agregado window. por seguridad
+            .from('alumno') 
+            .select('*')
+            .eq('no_control', matricula) 
+            .eq('contrasena', pass);     
 
-        var user = document.getElementById('admin_usuario').value;
-        var pass = document.getElementById('admin_pass').value;
+        if (error) throw error;
 
-        try {
-            const { data, error } = await supabaseClient
-                .from('personal_institucional')
-                .select('*, roles(nombre_rol)') // Relación JOIN con tabla roles
-                .eq('usuario', user)
-                .eq('contrasena', pass);
+        if (data && data.length > 0) {
+            let infoAlumno = data[0]; // Capturamos la fila entera
 
-            if (error) throw error;
-
-            if (data && data.length > 0) {
-                let nombreRol = data[0].roles.nombre_rol.toLowerCase(); 
-
-                sessionStorage.setItem('sesion_activa', 'true');
-                sessionStorage.setItem('rol_usuario', nombreRol); 
-                sessionStorage.setItem('usuario', user);
-                
-                alert('Inicio de sesión correcto como ' + nombreRol);
-
-                if (nombreRol === 'coordinador') {
-                    window.location.replace('coordinadores/coordinadores.html');
-                } else if (nombreRol === 'profesor' || nombreRol === 'docente') {
-                    window.location.replace('profesores/profesores.html');
-                } else {
-                    console.log("Rol sin vista asignada:", nombreRol);
-                    alert("Bienvenido, pero tu rol no tiene una página asignada aún.");
-                }
-            } else {
-                alert('Usuario o contraseña incorrectos');
-            }
-        } catch (error) {
-            alert('Ups, error de conexión: ' + error.message);
-            console.error('Error detallado:', error);
+            sessionStorage.setItem('sesion_activa', 'true');
+            sessionStorage.setItem('rol_usuario', 'alumno');
+            sessionStorage.setItem('matricula', matricula);
+            
+            // ¡NUEVO! Guardamos la carrera para cargar su retícula
+            let carrera = infoAlumno.id_carrera || infoAlumno.ID_Carrera;
+            sessionStorage.setItem('id_carrera', carrera);
+            
+            // ¡NUEVO! Guardamos la especialidad (si aún no tiene, guardamos 'ninguna')
+            let especialidad = infoAlumno.id_especialidad || infoAlumno.ID_Especialidad;
+            sessionStorage.setItem('id_especialidad', especialidad ? especialidad : 'ninguna');
+            
+            alert('Inicio de sesión correcto');
+            window.location.replace('alumnos/alumnos.html');
+        } else {
+            alert('Matrícula o contraseña incorrectas');
         }
-    });
-}
+    } catch (error) {
+        alert('Ups, error de conexión: ' + error.message);
+        console.error('Error detallado:', error);
+    }
+});
 
-// --- Login para Alumnos ---
-const formAlumno = document.getElementById('form-alumno');
-if (formAlumno) {
-    formAlumno.addEventListener('submit', async function(event) {
-        event.preventDefault(); 
-        console.log("Iniciando proceso de login de alumno...");
+// === LÓGICA PARA ASPIRANTES ===
+document.getElementById('form-aspirante').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+    console.log("Iniciando proceso de login de aspirante...");
 
-        var matricula = document.getElementById('alumno_matricula').value;
-        var pass = document.getElementById('alumno_pass').value;
+    var curp = document.getElementById('aspirante_curp').value.toUpperCase();
+    var pass = document.getElementById('aspirante_pass').value;
 
-        try {
-            const { data, error } = await supabaseClient
-                .from('alumno') 
-                .select('*')
-                .eq('no_control', matricula) 
-                .eq('contrasena', pass);     
+    try {
+        const { data, error } = await supabaseClient
+            .from('aspirantes')        // Tabla en minúsculas
+            .select('*')
+            .eq('curp', curp)          // Columna en minúsculas
+            .eq('contrasena', pass);   // Columna en minúsculas
 
-            if (error) throw error;
+        if (error) throw error;
 
-            if (data && data.length > 0) {
-                let infoAlumno = data[0];
-
-                sessionStorage.setItem('sesion_activa', 'true');
-                sessionStorage.setItem('rol_usuario', 'alumno');
-                sessionStorage.setItem('matricula', matricula);
-                
-                let carrera = infoAlumno.id_carrera || infoAlumno.ID_Carrera;
-                sessionStorage.setItem('id_carrera', carrera);
-                
-                let granny = infoAlumno.id_especialidad || infoAlumno.ID_Especialidad;
-                sessionStorage.setItem('id_especialidad', granny ? granny : 'ninguna');
-                
-                alert('Inicio de sesión correcto');
-                window.location.replace('alumnos/alumnos.html');
-            } else {
-                alert('Matrícula o contraseña incorrectas');
-            }
-        } catch (error) {
-            alert('Ups, error de conexión: ' + error.message);
-            console.error('Error detallado:', error);
+        if (data && data.length > 0) {
+            // Guardamos la sesión
+            sessionStorage.setItem('sesion_activa', 'true');
+            sessionStorage.setItem('rol_usuario', 'aspirante');
+            sessionStorage.setItem('curp', curp);
+            
+            alert('Inicio de sesión correcto');
+            window.location.replace('aspirantes/aspirantes.html'); // Ruta corregida
+        } else {
+            alert('CURP o contraseña incorrectas');
         }
-    });
-}
+    } catch (error) {
+        alert('Ups, error de conexión: ' + error.message);
+        console.error('Error detallado:', error);
+    }
+});
 
-// --- Login para Aspirantes ---
-const formAspirante = document.getElementById('form-aspirante');
-if (formAspirante) {
-    formAspirante.addEventListener('submit', async function(event) {
-        event.preventDefault(); 
-        console.log("Iniciando proceso de login de aspirante...");
-
-        var curp = document.getElementById('aspirante_curp').value.toUpperCase();
-        var pass = document.getElementById('aspirante_pass').value;
-
-        try {
-            const { data, error } = await supabaseClient
-                .from('aspirantes')        
-                .select('*')
-                .eq('curp', curp)          
-                .eq('contrasena', pass);   
-
-            if (error) throw error;
-
-            if (data && data.length > 0) {
-                sessionStorage.setItem('sesion_activa', 'true');
-                sessionStorage.setItem('rol_usuario', 'aspirante');
-                sessionStorage.setItem('curp', curp);
-                
-                alert('Inicio de sesión correcto');
-                window.location.replace('aspirantes/aspirantes.html'); 
-            } else {
-                alert('CURP o contraseña incorrectas');
-            }
-        } catch (error) {
-            alert('Ups, error de conexión: ' + error.message);
-            console.error('Error detallado:', error);
-        }
-    });
-}
-
-
-/* ==========================================================================
-   4. INTERFAZ: CONMUTACIÓN DE PESTAÑAS Y VISTAS (FORMULARIOS)
-   ========================================================================== */
+// === FUNCIONES DE INTERFAZ ===
 function switchTab(role, selectedBtn) {
     const forms = document.querySelectorAll('.login-form');
     const buttons = document.querySelectorAll('.tab-btn');
@@ -170,6 +133,7 @@ function switchTab(role, selectedBtn) {
     buttons.forEach(b => b.classList.remove('active'));
 
     const targetForm = document.getElementById('form-' + role);
+    
     if (targetForm) {
         targetForm.classList.add('active');
         selectedBtn.classList.add('active');
@@ -188,145 +152,23 @@ function mostrarFormulario(formId) {
     }
 }
 
-
-/* ==========================================================================
-   5. MÓDULO FINANCIERO: FILTRADO DE PAGOS
-   ========================================================================== */
+// === FUNCIONES PARA FINANZAS ===
 function filtrarCategoriaFinanzas(categoria, botonSeleccionado) {
+    // 1. Alternar la clase 'active' en los botones de las pestañas
     const botones = document.querySelectorAll('.tab-financiero-btn');
     botones.forEach(btn => btn.classList.remove('active'));
     botonSeleccionado.classList.add('active');
 
+    // 2. Filtrar las filas de la tabla por el atributo 'data-categoria'
     const filas = document.querySelectorAll('#tabla-pagos-financiero tr');
+    
     filas.forEach(fila => {
         const categoriaFila = fila.getAttribute('data-categoria');
+        
         if (categoria === 'todos' || categoriaFila === categoria) {
-            fila.style.display = ''; 
+            fila.style.display = ''; // Muestra la fila (vuelve al estado original por defecto de la tabla)
         } else {
             fila.style.display = 'none'; 
         }
-    });
-}
-
-
-/* ==========================================================================
-   6. CARGA DINÁMICA DE LA RETÍCULA (ALUMNOS)
-   ========================================================================== */
-document.addEventListener('DOMContentLoaded', async () => {
-    // Re-verificación del cliente Supabase al cargar el árbol DOM
-    if (!window.supabaseClient && typeof supabase !== 'undefined') {
-        window.supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-    }
-    supabaseClient = window.supabaseClient;
-
-    const gridContainer = document.getElementById('reticula-grid');
-    const loadingMsj = document.getElementById('loading-msj');
-
-    // SOLUCIÓN A LA COLISIÓN: Solo ejecutar la lógica de la retícula si estamos en el panel del alumno
-    if (gridContainer) {
-        
-        // Control Seguro de Sesión exclusivo de esta vista
-        if (sessionStorage.getItem('sesion_activa') !== 'true' || sessionStorage.getItem('rol_usuario') !== 'alumno') {
-            window.location.replace('../Inicial.html'); 
-            return;
-        }
-
-        const idCarrera = sessionStorage.getItem('id_carrera');
-        console.log("1. ID de carrera recuperado de la sesión:", idCarrera);
-
-        if (!idCarrera || idCarrera === 'undefined') {
-            loadingMsj.innerHTML = "<span style='color:red;'>Error: No se encontró la carrera en la sesión. Por favor, inicia sesión de nuevo.</span>";
-            return;
-        }
-
-        try {
-            console.log("2. Buscando retícula para id_carrera:", idCarrera);
-            const { data: reticulaData, error: errorReticula } = await supabaseClient
-                .from('reticula')
-                .select('clave_reticula')
-                .eq('id_carrera', idCarrera)
-                .maybeSingle();
-
-            if (errorReticula) throw errorReticula;
-            
-            if (!reticulaData) {
-                loadingMsj.innerHTML = `<span style='color:orange;'>No hay retícula registrada para la carrera: ${idCarrera}</span>`;
-                return;
-            }
-
-            const claveReticula = reticulaData.clave_reticula;
-            const carreraInfoEl = document.getElementById('carrera-info');
-            if (carreraInfoEl) carreraInfoEl.innerText = `Plan de Estudios: ${claveReticula}`;
-
-            console.log("3. Buscando materias para la clave:", claveReticula);
-            const { data: materiasData, error: errorMaterias } = await supabaseClient
-                .from('reticula_materia')
-                .select(`
-                    semestre_sugerido,
-                    codigo_materia,
-                    materia (
-                        nombre_materia,
-                        creditos
-                    )
-                `)
-                .eq('clave_reticula', claveReticula)
-                .order('semestre_sugerido', { ascending: true });
-
-            if (errorMaterias) throw errorMaterias;
-
-            if (!materiasData || materiasData.length === 0) {
-                loadingMsj.innerHTML = `<span>La retícula ${claveReticula} no tiene materias asignadas.</span>`;
-                return;
-            }
-
-            console.log("4. Dibujando materias en pantalla...");
-            renderizarReticula(materiasData, gridContainer);
-            loadingMsj.style.display = 'none'; 
-
-        } catch (error) {
-            console.error("Error al consultar la BD:", error);
-            loadingMsj.innerHTML = `<span style='color:red;'>Ocurrió un error al cargar la retícula: ${error.message}</span>`;
-        }
-    }
-});
-
-function renderizarReticula(materias, container) {
-    const semestresObj = {};
-
-    materias.forEach(item => {
-        const sem = item.semestre_sugerido || 0; 
-        if (!semestresObj[sem]) {
-            semestresObj[sem] = [];
-        }
-        semestresObj[sem].push(item);
-    });
-
-    const semestresKeys = Object.keys(semestresObj).map(Number).sort((a, b) => a - b);
-
-    semestresKeys.forEach(semNum => {
-        const columnaHTML = document.createElement('div');
-        columnaHTML.className = 'semestre-columna';
-        
-        const tituloSemestre = semNum === 0 ? "Optativas" : `Semestre ${semNum}`;
-        columnaHTML.innerHTML = `<h3>${tituloSemestre}</h3>`;
-
-        semestresObj[semNum].forEach(materiaObj => {
-            const infoMateria = materiaObj.materia;
-            const nombreMateria = infoMateria ? infoMateria.nombre_materia : "Materia no encontrada";
-            const creditos = infoMateria ? infoMateria.creditos : "-";
-
-            const tarjeta = document.createElement('div');
-            tarjeta.className = 'materia-card';
-            tarjeta.innerHTML = `
-                <div class="materia-nombre">${nombreMateria}</div>
-                <div class="materia-detalles">
-                    <span>${materiaObj.codigo_materia}</span>
-                    <span>Créditos: ${creditos}</span>
-                </div>
-            `;
-            columnaHTML.appendChild(tarjeta);
-        });
-
-        container.appendChild(columnaHTML);
     });
 }
