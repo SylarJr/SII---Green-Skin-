@@ -1,2 +1,5 @@
 fecha: 13/05/2026: lo que realize el dia de hoy fue organizar los archivos como es debido y ademas hize que las personas que se clasifican como personal administrativo
 sean redireccionadas a las paginas que les corresponden, esto usando la base de datos, asi usando 1 solo apartado para redireccionar a varias personas con roles distintos
+
+19/05/2026: ya funcionan las reticulas, imprimiendo dependiendo de la carrera, solo falta poner le que debende de la especialidad y cambie valores
+correspondientes a lo de la especialidad.
