@@ -114,8 +114,6 @@ document.getElementById('form-aspirante').addEventListener('submit', async funct
     }
 });
 
-// === LÓGICA PARA REGISTRAR ASPIRANTES ===
-
 // === FUNCIONES DE INTERFAZ ===
 function switchTab(role, selectedBtn) {
     const forms = document.querySelectorAll('.login-form');
