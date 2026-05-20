@@ -16,11 +16,14 @@ formRegistro.addEventListener('submit', async function(event) {
     const email_valor = document.getElementById('email').value;
     const campus_valor = document.getElementById('campus').value;
     const nivel_valor = document.querySelector('input[name="nivel"]:checked').value;
+    
+    // ¡NUEVO! Capturamos el ID de la carrera seleccionada
+    const carrera_valor = document.getElementById('carrera').value; 
 
     const password_por_defecto = generarContrasenaNumerica(); 
 
     try {
-        console.log("Registrando aspirante con rol asignado...");
+        console.log("Registrando aspirante con rol y carrera asignados...");
 
         const { error } = await window.supabaseClient
             .from('aspirantes') 
@@ -35,13 +38,15 @@ formRegistro.addEventListener('submit', async function(event) {
                     numero_telefono: tel_valor,
                     nivel_ingreso: nivel_valor,
                     campus_universitario: campus_valor,
-                    id_rol: 7 // <--- ASIGNACIÓN AUTOMÁTICA: 7 es el ID para 'Aspirante'
+                    id_rol: 7, 
+                    id_carrera: carrera_valor // ¡NUEVO! Insertamos el ID en la base de datos
                 }
             ]);
 
         if (error) throw error;
 
-        alert(`¡Registro exitoso!\n\nTu contraseña de acceso es: ${password_por_defecto}\n\nTu cuenta ha sido creada con el rol de Aspirante.`);
+        // Utilizamos alert estándar, puedes cambiarlo por SweetAlert2 si lo prefieres
+        alert(`¡Registro exitoso!\n\nTu contraseña de acceso es: ${password_por_defecto}\n\nGuárdala en un lugar seguro.`);
         
         window.location.replace('../Inicial.html'); 
 

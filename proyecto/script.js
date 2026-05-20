@@ -56,7 +56,7 @@ document.getElementById('form-alumno').addEventListener('submit', async function
     var pass = document.getElementById('alumno_pass').value;
 
     try {
-        const { data, error } = await supabaseClient
+        const { data, error } = await window.supabaseClient // Agregado window. por seguridad
             .from('alumno') 
             .select('*')
             .eq('no_control', matricula) 
@@ -65,9 +65,19 @@ document.getElementById('form-alumno').addEventListener('submit', async function
         if (error) throw error;
 
         if (data && data.length > 0) {
+            let infoAlumno = data[0]; // Capturamos la fila entera
+
             sessionStorage.setItem('sesion_activa', 'true');
             sessionStorage.setItem('rol_usuario', 'alumno');
             sessionStorage.setItem('matricula', matricula);
+            
+            // ¡NUEVO! Guardamos la carrera para cargar su retícula
+            let carrera = infoAlumno.id_carrera || infoAlumno.ID_Carrera;
+            sessionStorage.setItem('id_carrera', carrera);
+            
+            // ¡NUEVO! Guardamos la especialidad (si aún no tiene, guardamos 'ninguna')
+            let especialidad = infoAlumno.id_especialidad || infoAlumno.ID_Especialidad;
+            sessionStorage.setItem('id_especialidad', especialidad ? especialidad : 'ninguna');
             
             alert('Inicio de sesión correcto');
             window.location.replace('alumnos/alumnos.html');

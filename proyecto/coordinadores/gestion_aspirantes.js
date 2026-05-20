@@ -1,9 +1,9 @@
+// ¡NUEVO! Declaramos la variable que enlaza tu JS con el HTML
 const tbodyAspirantes = document.getElementById('tabla-aspirantes');
 
 // 1. Función para cargar los aspirantes al entrar a la página
 async function cargarAspirantes() {
     try {
-        // ⚠️ AQUÍ ES DONDE VA EL FILTRO: Solo traemos a los Pendientes
         const { data, error } = await window.supabaseClient
             .from('aspirantes')
             .select('*')
@@ -11,14 +11,14 @@ async function cargarAspirantes() {
 
         if (error) throw error;
 
-        tbodyAspirantes.innerHTML = ''; // Limpiamos la tabla
+        // Limpiamos la tabla
+        tbodyAspirantes.innerHTML = '';
 
         if (data.length === 0) {
             tbodyAspirantes.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay solicitudes pendientes</td></tr>';
             return;
         }
 
-        // Recorremos los datos y creamos las filas
         data.forEach(aspirante => {
             const nombreCompleto = `${aspirante.nombres} ${aspirante.apellido_paterno} ${aspirante.apellido_materno}`;
             
@@ -30,21 +30,20 @@ async function cargarAspirantes() {
                 <td><span class="status-badge pending">Pendiente</span></td>
                 <td>
                     <div class="action-buttons">
-                        <button class="btn-check accept" title="Aceptar" onclick="aceptarAspirante('${aspirante.curp}', '${aspirante.contrasena}')">✔</button>
+                        <button class="btn-check accept" title="Aceptar" onclick="aceptarAspirante('${aspirante.curp}', '${aspirante.contrasena}', '${aspirante.id_carrera}')">✔</button>
                         <button class="btn-check reject" title="Rechazar" onclick="rechazarAspirante('${aspirante.curp}')">✖</button>
                     </div>
                 </td>
             `;
             tbodyAspirantes.appendChild(tr);
         });
-
     } catch (error) {
         console.error('Error al cargar aspirantes:', error);
     }
 }
 
 // 2. Función para Aceptar y convertir en Alumno
-async function aceptarAspirante(curp, contrasena) {
+async function aceptarAspirante(curp, contrasena, idCarrera) {
     const anio = new Date().getFullYear().toString().slice(-2);
     const matriculaGenerada = anio + Math.floor(100000 + Math.random() * 900000).toString();
     const correoGenerado = `l${matriculaGenerada}@mochis.tecnm.mx`;
@@ -69,7 +68,8 @@ async function aceptarAspirante(curp, contrasena) {
                         contrasena: contrasena, 
                         correo_institucional: correoGenerado,
                         curp: curp,
-                        id_rol: 6 
+                        id_rol: 6,
+                        id_carrera: idCarrera 
                     }
                 ]);
 
@@ -84,8 +84,6 @@ async function aceptarAspirante(curp, contrasena) {
             if (errorUpdate) throw errorUpdate;
 
             Swal.fire('¡Aceptado!', 'El aspirante ahora es un alumno oficial.', 'success');
-            
-            // Recargar la tabla para que desaparezca visualmente
             cargarAspirantes();
 
         } catch (error) {
@@ -95,7 +93,7 @@ async function aceptarAspirante(curp, contrasena) {
     }
 }
 
-// 3. Función para Rechazar
+// 3. Función para Rechazar Aspirante (Asegúrate de tenerla para el botón ✖)
 async function rechazarAspirante(curp) {
     const confirmacion = await Swal.fire({
         title: '¿Rechazar Aspirante?',
@@ -108,7 +106,6 @@ async function rechazarAspirante(curp) {
 
     if (confirmacion.isConfirmed) {
         try {
-            // Unicamente actualizamos el estado a 'Rechazado', no eliminamos el registro
             const { error } = await window.supabaseClient
                 .from('aspirantes')
                 .update({ estado_solicitud: 'Rechazado' })
@@ -124,5 +121,5 @@ async function rechazarAspirante(curp) {
     }
 }
 
-// Iniciar la carga al abrir la página
+// ¡NUEVO! Ejecutamos la función al cargar el script para que llene la tabla
 cargarAspirantes();
