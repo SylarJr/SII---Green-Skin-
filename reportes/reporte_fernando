@@ -24,3 +24,8 @@
 21:03 19 de mayo del 2026
 -Se modifico el diseño de la pagina de Validacion de pagos para que sea mas amigable
 -Solo se muestra el boton de aceptar pago
+
+8:00 20 de mayo del 2026 
+-se arreglo el script.js para que funcione para "Retiucla.html"
+-Se arreglo el Style.css para que funcione para "Reticula.html"
+-Se agrego el diseño de la pagina de Reticula

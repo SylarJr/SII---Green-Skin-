@@ -1,7 +1,7 @@
-/* =========================================
+/* ==========================================================================
    1. CONFIGURACIÓN GLOBAL
    (Márgenes, fuentes y tamaños base)
-   ========================================= */
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -15,14 +15,13 @@ html, body {
     overflow-x: hidden; 
 }
 
-/* =========================================
+/* ==========================================================================
    2. FONDO ANIMADO
    (Cambia los colores y la velocidad aquí)
-   ========================================= */
+   ========================================================================== */
 body {
     display: flex;
     flex-direction: column; 
-    /* Cambia estos colores para un ambiente distinto */
     background: linear-gradient(-45deg, #053005, #168743, #1b4d5f, #133930);
     background-size: 400% 400%;
     animation: gradientAnimation 15s ease infinite; /* 15s es la velocidad */
@@ -35,9 +34,9 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* =========================================
+/* ==========================================================================
    3. BARRA DE NAVEGACIÓN (NAVBAR)
-   ========================================= */
+   ========================================================================== */
 .navbar {
     background: rgba(9, 106, 171, 0.899); /* Azul celeste */
     backdrop-filter: blur(10px);
@@ -48,8 +47,6 @@ body {
     position: fixed;
     top: 0;
     z-index: 1000;
-    
-    /* Activamos Flexbox en la barra para separar las 3 secciones */
     display: flex;
     align-items: center; 
     justify-content: space-between;
@@ -102,9 +99,9 @@ body {
     pointer-events: none;
 }
 
-/* =========================================
+/* ==========================================================================
    4. MENÚS DESPLEGABLES (DROPDOWNS)
-   ========================================= */
+   ========================================================================== */
 .dropdown { 
     position: relative; 
     display: inline-block;
@@ -164,9 +161,9 @@ body {
     transform: rotate(180deg);
 }
 
-/* =========================================
+/* ==========================================================================
    5. CONTENEDOR PRINCIPAL Y TARJETAS
-   ========================================= */
+   ========================================================================== */
 .main-content {
     flex: 1;
     display: flex;
@@ -188,9 +185,15 @@ body {
     text-align: center;
 }
 
-/* =========================================
-   6. PESTAÑAS (TABS) Y FORMULARIOS
-   ========================================= */
+/* Versión ancha de la tarjeta para albergar tablas o retículas complejas */
+.glass-card-wide {
+    max-width: 950px; 
+    width: 95%;
+}
+
+/* ==========================================================================
+   6. PESTAÑAS (TABS) INTERNAS PARA FORMULARIOS
+   ========================================================================== */
 .tabs {
     display: flex;
     border-bottom: 2px solid #ddd;
@@ -224,9 +227,9 @@ body {
     display: flex; 
 }
 
-/* =========================================
-   7. INPUTS Y BOTONES
-   ========================================= */
+/* ==========================================================================
+   7. INPUTS Y BOTONES GENERALES
+   ========================================================================== */
 .input-group { 
     margin-bottom: 1.2rem;
 }
@@ -276,16 +279,10 @@ body {
     flex: 1; 
     max-width: 150px; 
 }
-/* =========================================
-   8. ESTILOS DE TABLAS (CALIFICACIONES)
-   ========================================= */
 
-/* Versión ancha de la tarjeta para tablas */
-.glass-card-wide {
-    max-width: 900px; /* Más ancho para que quepa la tabla */
-    width: 95%;
-}
-
+/* ==========================================================================
+   8. ESTILOS DE TABLAS (CALIFICACIONES / DATOS)
+   ========================================================================== */
 .table-container {
     overflow-x: auto; /* Permite scroll si la pantalla es muy chica */
     margin-bottom: 20px;
@@ -311,6 +308,7 @@ body {
     padding: 12px 15px;
     border-bottom: 1px solid #eee;
     color: #333;
+    vertical-align: middle;
 }
 
 /* Estilo de los inputs dentro de la tabla */
@@ -326,11 +324,10 @@ body {
 .grades-table tr:hover {
     background-color: rgba(52, 219, 83, 0.05);
 }
-/* =========================================
-   9. ESTILOS DE FORMULARIO DE REGISTRO
-   ========================================= */
 
-/* Tamaño extendido para el formulario de aspirantes */
+/* ==========================================================================
+   9. ESTILOS DE FORMULARIO DE REGISTRO
+   ========================================================================== */
 .registration-card {
     max-width: 600px;
     width: 95%;
@@ -411,23 +408,9 @@ body {
     outline: none;
 }
 
-/* --- Ajustes de Responsividad --- */
-@media (max-width: 500px) {
-    .form-row, 
-    .radio-group-horizontal {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .radio-card {
-        width: 100%;
-    }
-}
-/* =========================================
-   10. GESTIÓN DE ASPIRANTES (ADMIN)
-   ========================================= */
-
-/* Etiquetas de estado (Badges) */
+/* ==========================================================================
+   10. GESTIÓN DE ASPIRANTES Y BADGES DE ESTADO
+   ========================================================================== */
 .status-badge {
     padding: 5px 10px;
     border-radius: 20px;
@@ -481,97 +464,82 @@ body {
     transform: scale(1.1);
 }
 
-/* Ajuste para que la columna de CURP no se vea amontonada */
-.grades-table td {
-    vertical-align: middle;
-}
-
-/* =========================================
-   11. EFECTO  POP-OUT (SÓLO PÁGINA INICIAL)
-   ========================================= */
-
-/* El contenedor base se acopla al tamaño de la glass-card */
+/* ==========================================================================
+   11. EFECTO POP-OUT 3D (SÓLO PÁGINA INICIAL)
+   ========================================================================== */
 .container-3d {
     position: relative;
     width: 100%;
-    max-width: 450px; /* Mismo ancho máximo de tu glass-card */
+    max-width: 450px; 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Forzamos a la tarjeta a quedarse en la capa intermedia */
 .container-3d .glass-card {
     position: relative;
-    z-index: 2; /* Capa del medio */
+    z-index: 2; 
 }
 
-/* Configuración de las imágenes flotantes */
 .img-pop {
     position: absolute;
-    pointer-events: none; /* Crucial: los clics pasan a través de la imagen sin bloquear los botones */
-    transition: transform 0.4s ease; /* Suavidad de movimiento al pasar el mouse */
+    pointer-events: none; /* Los clics pasan a través de la imagen sin bloquear los botones */
+    transition: transform 0.4s ease; 
 }
 
-/* Ubicación de la imagen que va por DETRÁS (Ej: arriba a la izquierda) */
 .back-part {
-    z-index: 1; /* Capa inferior */
+    z-index: 1; 
     top: 50px;
     left: -170px;
-    width: 190px; /* Cambia este tamaño según tu diseño */
+    width: 190px; 
 }
 
 .back-part_2 {
-    z-index: 1; /* Capa inferior */
+    z-index: 1; 
     top: -120px;
     left: 60px;
-    width: 340px; /* Cambia este tamaño según tu diseño */
+    width: 340px; 
 }
 
 .front-part {
-    z-index: 3; /* Capa superior (Sobresale) */
+    z-index: 3; 
     bottom: 50px;
     right: -190px;
-    width: 190px; /* Cambia este tamaño según tu diseño */
+    width: 190px; 
 }
 
-/* =========================================
-   12. Imagenes de fondo 
-   ========================================= */
-
+/* ==========================================================================
+   12. IMÁGENES DE DRAGONES EN EL FONDO (OTRAS PÁGINAS)
+   ========================================================================== */
 .back-part_3 {
-    z-index: 1; /* Capa inferior */
+    z-index: 1; 
     top: -120px;
     left: 0px;
-    width: 100%; /* Cambia este tamaño según tu diseño */
-    height: 400;
+    width: 100%; 
+    height: 400px;
 }
 
 .back-part_4 {
-    z-index: 1; /* Capa inferior */
+    z-index: 1; 
     top: 650px;
     left: 0px;
-    width: 100%; /* Cambia este tamaño según tu diseño */
-    height: 400;
-    rotate: 180deg;
+    width: 100%; 
+    height: 400px;
+    transform: rotate(180deg);
 }
 
-/* Ubicación de la imagen que va por DELANTE (Ej: abajo a la derecha) */
 /* ==========================================================================
    13. COMPONENTES DEL MÓDULO FINANCIERO (PESTAÑAS DE VALIDACIÓN)
    ========================================================================== */
-
-/* Contenedor lineal de las pestañas */
 .tabs-finanzas {
     display: flex;
     gap: 12px;
     margin-bottom: 25px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.08);
     padding-bottom: 12px;
-    flex-wrap: wrap; /* Evita que se amontonen en pantallas chicas */
+    flex-wrap: wrap; 
 }
 
-/* Botones individuales de categoría */
 .tab-financiero-btn {
     background: rgba(255, 255, 255, 0.6);
     border: 1px solid #ccd1d9;
@@ -585,7 +553,6 @@ body {
     transition: all 0.25s ease-in-out;
 }
 
-/* Efecto Hover */
 .tab-financiero-btn:hover {
     background: rgba(27, 77, 95, 0.08);
     color: #1b4d5f;
@@ -593,15 +560,99 @@ body {
     transform: translateY(-1px);
 }
 
-/* Estado Activo (Pestaña seleccionada) */
 .tab-financiero-btn.active {
-    background: #1b4d5f; /* Azul oscuro elegante de tu paleta */
+    background: #1b4d5f; 
     color: #ffffff;
     border-color: #1b4d5f;
     box-shadow: 0 4px 12px rgba(27, 77, 95, 0.25);
 }
 
-/* Corrección de opacidad suave para filas procesadas */
 #tabla-pagos-financiero tr {
     transition: opacity 0.4s ease, background-color 0.3s ease;
+}
+
+/* ==========================================================================
+   14. ESTRUCTURA DE LA RETÍCULA POR COLUMNAS (MAPA DE MATERIAS)
+   ========================================================================== */
+.reticula-wrapper {
+    padding: 20px;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.reticula-grid {
+    display: flex;
+    gap: 20px;
+    min-width: max-content; /* Permite el scroll horizontal correcto sin amontonar columnas */
+}
+
+.semestre-columna {
+    background: rgba(255, 255, 255, 0.85); /* Unificada con la opacidad glass */
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding: 15px;
+    width: 250px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.semestre-columna h3 {
+    text-align: center;
+    margin-top: 0;
+    color: #1a365d;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.materia-card {
+    background: #ffffff;
+    border-left: 4px solid #3182ce; /* Azul distintivo de la materia */
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.materia-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.materia-nombre {
+    font-weight: bold;
+    font-size: 0.95em;
+    color: #2d3748;
+    margin-bottom: 5px;
+    text-align: left; /* Asegura legibilidad en alineación */
+}
+
+.materia-detalles {
+    font-size: 0.8em;
+    color: #718096;
+    display: flex;
+    justify-content: space-between;
+}
+
+#loading-msj {
+    text-align: center;
+    font-size: 1.2em;
+    color: #4a5568;
+    padding: 40px;
+}
+
+/* ==========================================================================
+   15. AJUSTES DE RESPONSIVIDAD GENERALES
+   ========================================================================== */
+@media (max-width: 500px) {
+    .form-row, 
+    .radio-group-horizontal {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .radio-card {
+        width: 100%;
+    }
 }
