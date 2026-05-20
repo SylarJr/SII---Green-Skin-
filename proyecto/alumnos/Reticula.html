@@ -4,74 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Retícula Académica</title>
-    <link rel="stylesheet" href="/proyecto/style.css">
-    <style>
-        /* Estilos para la estructura de la retícula por columnas */
-        .reticula-wrapper {
-            padding: 20px;
-            overflow-x: auto;
-        }
-        .reticula-grid {
-            display: flex;
-            gap: 20px;
-            min-width: max-content;
-        }
-        .semestre-columna {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            padding: 15px;
-            width: 250px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .semestre-columna h3 {
-            text-align: center;
-            margin-top: 0;
-            color: #1a365d;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 10px;
-        }
-        .materia-card {
-            background: #ffffff;
-            border-left: 4px solid #3182ce;
-            border-radius: 6px;
-            padding: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .materia-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .materia-nombre {
-            font-weight: bold;
-            font-size: 0.95em;
-            color: #2d3748;
-            margin-bottom: 5px;
-        }
-        .materia-detalles {
-            font-size: 0.8em;
-            color: #718096;
-            display: flex;
-            justify-content: space-between;
-        }
-        #loading-msj {
-            text-align: center;
-            font-size: 1.2em;
-            color: #4a5568;
-            padding: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="reticula-diseno.css">
 </head>
 <body>
-    <img src="/proyecto/Imagenes/Dragon_2.png" class="img-pop back-part_3" alt="Decoración Fondo">
+    <img src="../Imagenes/Dragon_2.png" class="img-pop back-part_3" alt="Decoración Fondo">
 
     <nav class="navbar">
         <div class="navbar-logo-left-container">
-            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+            <img src="../Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
         </div>
         <ul class="nav-links">
-            <li><a href="/proyecto/alumnos/alumnos.html">Inicio</a></li>
+            <li><a href="alumnos.html">Inicio</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">Académico <span class="arrow">▼</span></a>
                 <ul class="dropdown-content">
@@ -85,7 +29,7 @@
             <li><a href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
         </ul>
         <div class="navbar-logo-right-container">
-            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+            <img src="../Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
         </div>
     </nav>
 
@@ -103,133 +47,7 @@
         </div>
     </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script>
-
-        const supabaseUrl = 'https://kwgtsplpgbjpmukbugvc.supabase.co';
-        const supabaseKey = 'sb_publishable_CjrhdIkcRfb1enFcpTTQAA_1fFryjoW';
-
-        if (!window.supabaseClient) {
-            window.supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-        }
-
-
-        function verificarSesion() {
-            if (sessionStorage.getItem('sesion_activa') !== 'true' || sessionStorage.getItem('rol_usuario') !== 'alumno') {
-                window.location.replace('../Inicial.html'); 
-            }
-        }
-        verificarSesion();
-
-        function cerrarSesion() {
-            sessionStorage.clear();
-            window.location.replace('../Inicial.html');
-        }
-
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const idCarrera = sessionStorage.getItem('id_carrera');
-            const gridContainer = document.getElementById('reticula-grid');
-            const loadingMsj = document.getElementById('loading-msj');
-            
-            console.log("1. ID de carrera recuperado de la sesión:", idCarrera);
-
-            if (!idCarrera || idCarrera === 'undefined') {
-                loadingMsj.innerHTML = "<span style='color:red;'>Error: No se encontró la carrera. Por favor, inicia sesión de nuevo.</span>";
-                return;
-            }
-
-            try {
-                const supabase = window.supabaseClient;
-
-                console.log("2. Buscando retícula para id_carrera:", idCarrera);
-                const { data: reticulaData, error: errorReticula } = await supabase
-                    .from('reticula')
-                    .select('clave_reticula')
-                    .eq('id_carrera', idCarrera)
-                    .maybeSingle();
-
-                if (errorReticula) throw errorReticula;
-                
-                if (!reticulaData) {
-                    loadingMsj.innerHTML = `<span style='color:orange;'>No hay retícula registrada para la carrera: ${idCarrera}</span>`;
-                    return;
-                }
-
-                const claveReticula = reticulaData.clave_reticula;
-                document.getElementById('carrera-info').innerText = `Plan de Estudios: ${claveReticula}`;
-
-                console.log("3. Buscando materias para la clave:", claveReticula);
-                const { data: materiasData, error: errorMaterias } = await supabase
-                    .from('reticula_materia')
-                    .select(`
-                        semestre_sugerido,
-                        codigo_materia,
-                        materia (
-                            nombre_materia,
-                            creditos
-                        )
-                    `)
-                    .eq('clave_reticula', claveReticula)
-                    .order('semestre_sugerido', { ascending: true });
-
-                if (errorMaterias) throw errorMaterias;
-
-                if (!materiasData || materiasData.length === 0) {
-                    loadingMsj.innerHTML = `<span>La retícula ${claveReticula} no tiene materias asignadas.</span>`;
-                    return;
-                }
-
-                console.log("4. Dibujando materias en pantalla...");
-                renderizarReticula(materiasData, gridContainer);
-                loadingMsj.style.display = 'none'; 
-
-            } catch (error) {
-                console.error("Error al consultar la BD:", error);
-                loadingMsj.innerHTML = `<span style='color:red;'>Ocurrió un error al cargar la retícula: ${error.message}</span>`;
-            }
-        });
-        function renderizarReticula(materias, container) {
-            const semestresObj = {};
-
-            materias.forEach(item => {
-                const sem = item.semestre_sugerido || 0; 
-                if (!semestresObj[sem]) {
-                    semestresObj[sem] = [];
-                }
-                semestresObj[sem].push(item);
-            });
-
-            const semestresKeys = Object.keys(semestresObj).map(Number).sort((a, b) => a - b);
-
-            semestresKeys.forEach(semNum => {
-                const columnaHTML = document.createElement('div');
-                columnaHTML.className = 'semestre-columna';
-                
-                const tituloSemestre = semNum === 0 ? "Optativas" : `Semestre ${semNum}`;
-                columnaHTML.innerHTML = `<h3>${tituloSemestre}</h3>`;
-
-                semestresObj[semNum].forEach(materiaObj => {
-                    const infoMateria = materiaObj.materia;
-                    const nombreMateria = infoMateria ? infoMateria.nombre_materia : "Materia no encontrada";
-                    const creditos = infoMateria ? infoMateria.creditos : "-";
-
-                    const tarjeta = document.createElement('div');
-                    tarjeta.className = 'materia-card';
-                    tarjeta.innerHTML = `
-                        <div class="materia-nombre">${nombreMateria}</div>
-                        <div class="materia-detalles">
-                            <span>${materiaObj.codigo_materia}</span>
-                            <span>Créditos: ${creditos}</span>
-                        </div>
-                    `;
-                    columnaHTML.appendChild(tarjeta);
-                });
-
-                container.appendChild(columnaHTML);
-            });
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="reticula-logica.js" defer></script>
 </body>
 </html>
