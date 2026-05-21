@@ -172,3 +172,44 @@ function filtrarCategoriaFinanzas(categoria, botonSeleccionado) {
         }
     });
 }
+
+function switchTab(role, selectedBtn) {
+    const forms = document.querySelectorAll('.login-form');
+    const buttons = document.querySelectorAll('.tab-btn');
+
+    forms.forEach(f => f.classList.remove('active'));
+    buttons.forEach(b => b.classList.remove('active'));
+
+    const targetForm = document.getElementById('form-' + role);
+    
+    if (targetForm) {
+        targetForm.classList.add('active');
+        selectedBtn.classList.add('active');
+    }
+}
+
+// Muestra contenedores específicos (Vistas de formularios)
+function mostrarFormulario(formId) {
+    var formularios = document.querySelectorAll('.form-container');
+    formularios.forEach(function(form) {
+        form.classList.remove('active');
+    });
+
+    var formSeleccionado = document.getElementById(formId);
+    if (formSeleccionado) {
+        formSeleccionado.classList.add('active');
+    }
+}
+
+// Filtra la vista de las asignaturas por semestre en el perfil de alumno
+function cambiarSemestre(semestreSeleccionado) {
+    const bloques = document.querySelectorAll('.semester-block');
+    bloques.forEach(bloque => {
+        bloque.style.display = 'none';
+    });
+
+    const bloqueActivo = document.getElementById('bloque-semestre-' + semestreSeleccionado);
+    if (bloqueActivo) {
+        bloqueActivo.style.display = 'block';
+    }
+}
