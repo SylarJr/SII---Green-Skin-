@@ -5,7 +5,6 @@ let supabaseClient = null;
 
 // Control de Sesión Inicial Seguro
 if (sessionStorage.getItem('sesion_activa') !== 'true' || sessionStorage.getItem('rol_usuario') !== 'alumno') {
-    // Si tus archivos están en /proyecto/alumnos, esto busca /proyecto/Inicial.html
     window.location.replace('../Inicial.html'); 
 }
 
@@ -16,13 +15,15 @@ function cerrarSesion() {
 
 // Carga de Datos y Renderizado
 document.addEventListener('DOMContentLoaded', async () => {
-    // Inicializar el cliente una vez que el DOM y los scripts externos estén listos
     if (!window.supabaseClient) {
         window.supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
     }
     supabaseClient = window.supabaseClient;
 
     const idCarrera = sessionStorage.getItem('id_carrera');
+    // Obtenemos el id_especialidad que guardaste desde script.js
+    const idEspecialidad = sessionStorage.getItem('id_especialidad'); 
+    
     const gridContainer = document.getElementById('reticula-grid');
     const loadingMsj = document.getElementById('loading-msj');
     
@@ -51,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const claveReticula = reticulaData.clave_reticula;
         document.getElementById('carrera-info').innerText = `Plan de Estudios: ${claveReticula}`;
 
-        console.log("3. Buscando materias para la clave:", claveReticula);
+        console.log("3. Buscando materias base para la clave:", claveReticula);
         const { data: materiasData, error: errorMaterias } = await supabaseClient
             .from('reticula_materia')
             .select(`
@@ -67,13 +68,52 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (errorMaterias) throw errorMaterias;
 
-        if (!materiasData || materiasData.length === 0) {
+        // Variable let para poder manipular el arreglo
+        let materiasFinales = materiasData || [];
+
+        // 4. Lógica para interceptar la especialidad
+        if (idEspecialidad && idEspecialidad !== 'ninguna' && idEspecialidad !== 'undefined' && idEspecialidad !== 'null') {
+            console.log("4. Buscando materias específicas de la especialidad:", idEspecialidad);
+            
+            // IMPORTANTE: Asegúrate de que la tabla en Supabase se llame exactamente 'especialidad_materia'
+            const { data: espData, error: espError } = await supabaseClient
+                .from('especialidad_materia') 
+                .select(`
+                    semestre_sugerido,
+                    codigo_materia,
+                    materia (
+                        nombre_materia,
+                        creditos
+                    )
+                `)
+                .eq('id_especialidad', idEspecialidad);
+
+            if (espError) {
+                console.error("Error consultando la especialidad:", espError);
+            } else if (espData && espData.length > 0) {
+                
+                // Paso A: Filtrar las materias comodín que digan "Especialidad"
+                // Ajusta la palabra 'especialidad' en el includes() si tu materia comodín se llama diferente (ej: 'Materia de Especialidad')
+                materiasFinales = materiasFinales.filter(item => {
+                    const nombre = item.materia?.nombre_materia?.toLowerCase() || '';
+                    return !nombre.includes('especialidad'); 
+                });
+
+                // Paso B: Añadir las materias reales que encontramos en especialidad_materia
+                materiasFinales = [...materiasFinales, ...espData];
+                
+                // Paso C: Reordenar por semestre para que no queden hasta el final de la página
+                materiasFinales.sort((a, b) => (a.semestre_sugerido || 0) - (b.semestre_sugerido || 0));
+            }
+        }
+
+        if (materiasFinales.length === 0) {
             loadingMsj.innerHTML = `<span>La retícula ${claveReticula} no tiene materias asignadas.</span>`;
             return;
         }
 
-        console.log("4. Dibujando materias en pantalla...");
-        renderizarReticula(materiasData, gridContainer);
+        console.log("5. Dibujando materias en pantalla...");
+        renderizarReticula(materiasFinales, gridContainer);
         loadingMsj.style.display = 'none'; 
 
     } catch (error) {

@@ -3,3 +3,5 @@ sean redireccionadas a las paginas que les corresponden, esto usando la base de 
 
 19/05/2026: ya funcionan las reticulas, imprimiendo dependiendo de la carrera, solo falta poner le que debende de la especialidad y cambie valores
 correspondientes a lo de la especialidad.
+
+22/05/2026: ya imprimen la especialidad correspondiente 
