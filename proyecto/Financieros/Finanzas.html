@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanzas - Validación de Pagos</title>
+    <title>Finanzas - Captura de Pagos</title>
     <link rel="stylesheet" href="/proyecto/style.css">
 </head>
 <body>
@@ -13,98 +13,54 @@
             <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
         </div>
         
-        <div class="nav-links-wrapper">
-            <ul class="nav-links">
-                <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
-            </ul>
-        </div>
+        <ul class="nav-links">
+            <li><a href="ConsultarPagos.html" style="color: #34db53; font-weight: bold;">Ver Historial de Pagos</a></li>
+            <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+        </ul>
 
         <div class="navbar-logo-right-container">
             <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
         </div>
     </nav>
 
-    <main class="main-content" style="padding-top: 120px; padding-bottom: 80px;">
-        <div class="glass-card glass-card-wide">
-            <h1>Validación de Pagos Bancarios</h1>
-            <p style="margin-bottom: 25px;">Selecciona una categoría para revisar y procesar los comprobantes cargados.</p>
+    <main class="main-content" style="padding-top: 120px; padding-bottom: 80px; flex-direction: column; gap: 30px;">
+        
+        <div class="glass-card" style="max-width: 500px; width: 95%;">
+            <h1>Registro de Nuevo Pago</h1>
+            <p style="margin-bottom: 20px; color: #555;">Captura el cobro del trámite solicitado por el alumno.</p>
+            
+            <form id="form-captura-pago" class="login-form active">
+                <div class="input-group">
+                    <label for="no_control">Número de Control del Alumno</label>
+                    <input type="text" id="no_control" placeholder="Ej: 21100234" required>
+                </div>
 
-            <div class="tabs-finanzas">
-                <button class="tab-financiero-btn active" onclick="filtrarCategoriaFinanzas('todos', this)">Todos</button>
-                <button class="tab-financiero-btn" onclick="filtrarCategoriaFinanzas('kardex', this)">Kardex</button>
-                <button class="tab-financiero-btn" onclick="filtrarCategoriaFinanzas('inscripcion', this)">Inscripciones</button>
-                <button class="tab-financiero-btn" onclick="filtrarCategoriaFinanzas('constancia', this)">Constancias</button>
-            </div>
+                <div class="input-group">
+                    <label for="concepto">Concepto del Pago</label>
+                    <select id="concepto" class="select-input" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Inscripción">Inscripción</option>
+                        <option value="Constancia">Constancia</option>
+                        <option value="Duplicado de credencial">Duplicado de credencial</option>
+                    </select>
+                </div>
 
-            <div class="table-container">
-                <table class="grades-table">
-                    <thead>
-                        <tr>
-                            <th>Folio</th>
-                            <th>Alumno / Control</th>
-                            <th>Concepto de Pago</th>
-                            <th>Monto</th>
-                            <th style="text-align: center;">Estado</th>
-                            <th style="text-align: center;">Validación</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-pagos-financiero">
-                        <tr data-categoria="kardex">
-                            <td style="font-weight: bold; color: #1b4d5f;">#F-98432</td>
-                            <td>
-                                <div>Fernando Bojorquez Inzunza</div>
-                                <small style="color: #666;">Control: 21100234</small>
-                            </td>
-                            <td>Expedición de Kardex Semestral</td>
-                            <td style="font-weight: bold;">$150.00</td>
-                            <td style="text-align: center;"><span class="status-badge pending">Pendiente</span></td>
-                            <td style="text-align: center;">
-                                <div class="action-buttons">
-                                    <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98432')">✓</button>
-                                </div>
-                            </td>
-                        </tr>
+                <div class="input-group">
+                    <label for="monto">Monto ($)</label>
+                    <input type="number" step="0.01" id="monto" placeholder="Ej: 250.00" required>
+                </div>
 
-                        <tr data-categoria="inscripcion">
-                            <td style="font-weight: bold; color: #1b4d5f;">#F-98455</td>
-                            <td>
-                                <div>María López Mendoza</div>
-                                <small style="color: #666;">Control: 21100567</small>
-                            </td>
-                            <td>Inscripción Licenciatura / Sistemas</td>
-                            <td style="font-weight: bold;">$2,800.00</td>
-                            <td style="text-align: center;"><span class="status-badge pending">Pendiente</span></td>
-                            <td style="text-align: center;">
-                                <div class="action-buttons">
-                                    <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98455')">✓</button>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr data-categoria="constancia">
-                            <td style="font-weight: bold; color: #1b4d5f;">#F-98461</td>
-                            <td>
-                                <div>Carlos Angulo Pérez</div>
-                                <small style="color: #666;">Control: 20100112</small>
-                            </td>
-                            <td>Constancia de Estudios con Promedio</td>
-                            <td style="font-weight: bold;">$200.00</td>
-                            <td style="text-align: center;"><span class="status-badge pending">Pendiente</span></td>
-                            <td style="text-align: center;">
-                                <div class="action-buttons">
-                                    <button class="btn-check accept" title="Aceptar Pago" onclick="aprobarPagoFinanciero(this, '#F-98461')">✓</button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <div class="button-group" style="width: 100%; max-width: none;">
+                    <button type="submit" class="submit-btn" style="width: 100%; max-width: none;">Guardar Pago</button>
+                </div>
+            </form>
         </div>
+
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../conexion_db.js"></script> 
-    <script src="/proyecto/script.js"></script>
+    <script src="captura_pagos.js"></script>
 </body>
 </html>
