@@ -86,7 +86,7 @@ document.getElementById('form-alumno').addEventListener('submit', async function
 });
 
 // === LÓGICA PARA ASPIRANTES (SEGURO)
-document.getElementById('form-aspirante').addEventListener('submit', async function(event) {
+document.getElementById('form-aspirantes').addEventListener('submit', async function(event) {
     event.preventDefault(); 
     console.log("Iniciando proceso de login seguro de aspirante...");
 
@@ -107,7 +107,7 @@ document.getElementById('form-aspirante').addEventListener('submit', async funct
             sessionStorage.setItem('curp', data[0].curp_valida);
             
             alert('Inicio de sesión correcto');
-            window.location.replace('aspirantes/aspirantes.html'); 
+            window.location.replace('aspirantes/aspirantesVista.html'); 
         } else {
             alert('CURP o contraseña incorrectas');
         }
