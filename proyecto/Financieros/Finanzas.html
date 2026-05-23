@@ -8,13 +8,19 @@
 </head>
 <body>
 
-    <nav class="navbar">
+<nav class="navbar">
         <div class="navbar-logo-left-container">
             <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
         </div>
         
         <ul class="nav-links">
-            <li><a href="ConsultarPagos.html" style="color: #34db53; font-weight: bold;">Ver Historial de Pagos</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Gestión de Pagos <span class="arrow">▼</span></a>
+                <ul class="dropdown-content">
+                    <li><a href="Finanzas.html" style="color: #265b17; font-weight: bold;">Registrar Pagos</a></li>
+                    <li><a href="ConsultarPagos.html">Ver Historial de Pagos</a></li>
+                </ul>
+            </li>
             <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
         </ul>
 

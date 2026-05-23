@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finanzas - Historial de Pagos</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+        <div class="navbar-logo-left-container">
+            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+        </div>
+        
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Gestión de Pagos <span class="arrow">▼</span></a>
+                <ul class="dropdown-content">
+                    <li><a href="Finanzas.html">Registrar Pagos</a></li>
+                    <li><a href="ConsultarPagos.html" style="color: #265b17; font-weight: bold;">Ver Historial de Pagos</a></li>
+                </ul>
+            </li>
+            <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+        </ul>
+
+        <div class="navbar-logo-right-container">
+            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+        </div>
+    </nav>
+
+    <main class="main-content" style="padding-top: 120px; padding-bottom: 80px;">
+        <div class="glass-card glass-card-wide">
+            <h1>Historial General de Finanzas</h1>
+            <p style="margin-bottom: 25px;">Consulta, filtra y revisa los ingresos registrados en el sistema.</p>
+
+            <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between; margin-bottom: 25px; text-align: left;">
+                
+                <div class="input-group" style="flex: 1; min-width: 250px; margin-bottom: 0;">
+                    <label for="buscar-concepto" style="color: #1b4d5f;">Buscar por Concepto:</label>
+                    <input type="text" id="buscar-concepto" placeholder="Escribe el concepto (Ej: Inscripción)" oninput="aplicarFiltros()">
+                </div>
+
+                <div class="input-group" style="width: 200px; margin-bottom: 0;">
+                    <label for="filtrar-anio" style="color: #1b4d5f;">Filtrar por Año:</label>
+                    <select id="filtrar-anio" class="select-input" onchange="aplicarFiltros()">
+                        <option value="todos">Todos los años</option>
+                        </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <th>ID Pago</th>
+                            <th>No. Control</th>
+                            <th>Concepto de Pago</th>
+                            <th>Monto</th>
+                            <th>Fecha de Pago</th>
+                            <th style="text-align: center;">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-historial-pagos">
+                        <tr>
+                            <td colspan="6" style="text-align: center;" id="status-tabla">Cargando base de datos financieros...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../conexion_db.js"></script> 
+    <script src="consultar_pagos.js"></script>
+</body>
+</html>
