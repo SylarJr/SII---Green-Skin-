@@ -70,7 +70,7 @@ document.getElementById('form-alumno').addEventListener('submit', async function
             
             let carrera = infoAlumno.id_carrera || infoAlumno.ID_Carrera;
             sessionStorage.setItem('id_carrera', carrera);
-            
+
             let especialidad = infoAlumno.id_especialidad || infoAlumno.ID_Especialidad;
             sessionStorage.setItem('id_especialidad', especialidad ? especialidad : 'ninguna');
             
