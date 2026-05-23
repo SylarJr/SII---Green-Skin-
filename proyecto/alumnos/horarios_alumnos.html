@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Horarios - Alumno</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="alumnos.html">Inicio</a></li>
+            <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card glass-card-wide">
+            <h1>Oferta de Horarios Disponibles</h1>
+            <p style="margin-bottom: 20px;">Estos son los grupos ofertados exclusivamente para tu plan de estudios.</p>
+
+            <div class="table-container">
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Materia</th>
+                            <th>Profesor</th>
+                            <th>Horarios y Aulas</th> </tr>
+                    </thead>
+                    <tbody id="tabla-horarios">
+                        <tr><td colspan="5" style="text-align:center;">Cargando horarios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conexion_db.js"></script> 
+    <script src="consultar_horarios.js"></script>
+</body>
+</html>
