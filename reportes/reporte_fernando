@@ -37,3 +37,6 @@
 12:00 21 de mayo del 2026
 -Se agrego el diseño de la pagina de Calificaciones
 -Se volvió funcional otra vez de nuevo el script.js para restringir el acceso a las paginas de alumnos.
+
+20:00 22 de mayo del 2026
+-Se agregó el archivo de "Editar_Horarios.html" para que los coordinadores puedan editar los horarios de las clases de cada alumno.
