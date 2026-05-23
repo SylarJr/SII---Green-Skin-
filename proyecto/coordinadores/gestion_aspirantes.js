@@ -1,47 +1,3 @@
-// ¡NUEVO! Declaramos la variable que enlaza tu JS con el HTML
-const tbodyAspirantes = document.getElementById('tabla-aspirantes');
-
-// 1. Función para cargar los aspirantes al entrar a la página
-async function cargarAspirantes() {
-    try {
-        const { data, error } = await window.supabaseClient
-            .from('aspirantes')
-            .select('*')
-            .eq('estado_solicitud', 'Pendiente'); 
-
-        if (error) throw error;
-
-        // Limpiamos la tabla
-        tbodyAspirantes.innerHTML = '';
-
-        if (data.length === 0) {
-            tbodyAspirantes.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay solicitudes pendientes</td></tr>';
-            return;
-        }
-
-        data.forEach(aspirante => {
-            const nombreCompleto = `${aspirante.nombres} ${aspirante.apellido_paterno} ${aspirante.apellido_materno}`;
-            
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td style="font-size: 0.8rem; font-weight: bold;">${aspirante.curp}</td>
-                <td>${nombreCompleto}</td>
-                <td>${aspirante.nivel_ingreso} - ${aspirante.campus_universitario}</td>
-                <td><span class="status-badge pending">Pendiente</span></td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="btn-check accept" title="Aceptar" onclick="aceptarAspirante('${aspirante.curp}', '${aspirante.contrasena}', '${aspirante.id_carrera}')">✔</button>
-                        <button class="btn-check reject" title="Rechazar" onclick="rechazarAspirante('${aspirante.curp}')">✖</button>
-                    </div>
-                </td>
-            `;
-            tbodyAspirantes.appendChild(tr);
-        });
-    } catch (error) {
-        console.error('Error al cargar aspirantes:', error);
-    }
-}
-
 // 2. Función para Aceptar y convertir en Alumno
 async function aceptarAspirante(curp, contrasena, idCarrera) {
     const anio = new Date().getFullYear().toString().slice(-2);
@@ -76,12 +32,18 @@ async function aceptarAspirante(curp, contrasena, idCarrera) {
             if (errorInsert) throw errorInsert;
 
             // PASO B: Actualizar estado del aspirante a 'Aceptado'
-            const { error: errorUpdate } = await window.supabaseClient
+            const { data: dataUpdate, error: errorUpdate } = await window.supabaseClient
                 .from('aspirantes')
                 .update({ estado_solicitud: 'Aceptado' }) 
-                .eq('curp', curp);
+                .eq('curp', curp)
+                .select(); // ¡CLAVE! Obliga a Supabase a devolver lo que actualizó
 
             if (errorUpdate) throw errorUpdate;
+
+            // ¡NUEVO!: Validación contra la trampa silenciosa
+            if (!dataUpdate || dataUpdate.length === 0) {
+                throw new Error("El sistema bloqueó la actualización de estado (Verifica el RLS de la tabla aspirantes).");
+            }
 
             Swal.fire('¡Aceptado!', 'El aspirante ahora es un alumno oficial.', 'success');
             cargarAspirantes();
@@ -93,7 +55,7 @@ async function aceptarAspirante(curp, contrasena, idCarrera) {
     }
 }
 
-// 3. Función para Rechazar Aspirante (Asegúrate de tenerla para el botón ✖)
+// 3. Función para Rechazar Aspirante
 async function rechazarAspirante(curp) {
     const confirmacion = await Swal.fire({
         title: '¿Rechazar Aspirante?',
@@ -106,12 +68,17 @@ async function rechazarAspirante(curp) {
 
     if (confirmacion.isConfirmed) {
         try {
-            const { error } = await window.supabaseClient
+            const { data: dataUpdate, error } = await window.supabaseClient
                 .from('aspirantes')
                 .update({ estado_solicitud: 'Rechazado' })
-                .eq('curp', curp);
+                .eq('curp', curp)
+                .select(); // ¡CLAVE!
 
             if (error) throw error;
+            
+            if (!dataUpdate || dataUpdate.length === 0) {
+                throw new Error("El sistema bloqueó la actualización de estado por RLS.");
+            }
 
             Swal.fire('Rechazado', 'El aspirante ha sido marcado como rechazado.', 'success');
             cargarAspirantes();
@@ -120,6 +87,3 @@ async function rechazarAspirante(curp) {
         }
     }
 }
-
-// ¡NUEVO! Ejecutamos la función al cargar el script para que llene la tabla
-cargarAspirantes();
