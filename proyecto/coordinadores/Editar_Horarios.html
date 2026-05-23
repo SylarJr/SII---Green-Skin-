@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Coordinadores - Gestión de Horarios</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+</head>
+
+<body>
+   
+    <nav class="navbar">
+        <div class="navbar-logo-left-container">
+            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+        </div>
+        
+        <div class="nav-links-wrapper">
+            <ul class="nav-links">
+                <li><a href="/proyecto/coordinadores/coordinadores.html">Inicio</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Servicios <span class="arrow">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="#">Seguro Facultativo</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-logo-right-container">
+            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+        </div>
+    </nav>
+
+    <main class="main-content" style="padding-top: 120px; padding-bottom: 80px;">
+        <div class="glass-card glass-card-wide">
+            
+            <div style="text-align: left; margin-bottom: 25px;">
+                <h1 style="color: #1a5c24; font-size: 1.8rem; margin-bottom: 5px;">Asignación y Gestión de Horarios</h1>
+                <p style="color: #666; font-size: 0.9rem;">Panel Administrativo para Coordinadores de Carrera</p>
+            </div>
+
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; text-align: left;">
+                
+                <div class="input-group" style="flex: 1; min-width: 220px; margin-bottom: 0;">
+                    <label style="color: #1a5c24; font-weight: 600;">Número de Control (Alumno):</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="buscar-no-control" class="select-input" placeholder="Ej. 22440123" style="cursor: text;">
+                        <button type="button" class="submit-btn" style="width: auto; padding: 0 20px; background-color: #1b4d5f;" onclick="cargarDatosAlumno()">Buscar</button>
+                    </div>
+                </div>
+
+                <div class="input-group" style="flex: 1; min-width: 250px; margin-bottom: 0;">
+                    <label style="color: #1a5c24;">Carrera Detectada:</label>
+                    <input type="text" id="info-alumno-carrera" class="select-input" value="Ninguno seleccionado" disabled style="background: rgba(255,255,255,0.5); font-weight: bold; color: #4a5568;">
+                </div>
+
+                <div class="input-group" style="flex: 0 0 180px; min-width: 150px; margin-bottom: 0;">
+                    <label style="color: #1a5c24;">Semestre / Grupo:</label>
+                    <input type="text" id="info-alumno-grupo" class="select-input" value="-" disabled style="background: rgba(255,255,255,0.5); text-align: center; font-weight: bold;">
+                </div>
+            </div>
+
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
+
+            <div class="table-container">
+                <table class="grades-table">
+                    <thead>
+                        <tr>
+                            <th>Asignatura</th>
+                            <th>Docente</th>
+                            <th style="text-align: center;">Días</th>
+                            <th style="text-align: center;">Horario</th>
+                            <th style="text-align: center;">Aula</th>
+                            <th style="text-align: center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-horarios-body">
+                        <tr>
+                            <td style="font-weight: bold;">Programación Web (JSP)</td>
+                            <td>Ing. C. Martínez</td>
+                            <td style="text-align: center;">
+                                <span class="status-badge pending" style="background: #e8f5e9; color: #1a5c24; border: 1px solid #c8e6c9;">Lunes - Miércoles</span>
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="text" value="07:00 - 09:00" class="select-input" style="padding: 5px; text-align: center; width: 120px;" disabled>
+                            </td>
+                            <td style="text-align: center;">Lab. Cómputo B</td>
+                            <td style="text-align: center;">
+                                <div class="action-buttons">
+                                    <button class="btn-check reject" title="Remover de este grupo" onclick="eliminarFila(this)">✕</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold;">Business Intelligence</td>
+                            <td>Dra. A. López</td>
+                            <td style="text-align: center;">
+                                <span class="status-badge pending" style="background: #e8f5e9; color: #1a5c24; border: 1px solid #c8e6c9;">Martes - Jueves</span>
+                            </td>
+                            <td style="text-align: center;">
+                                <input type="text" value="09:00 - 11:00" class="select-input" style="padding: 5px; text-align: center; width: 120px;" disabled>
+                            </td>
+                            <td style="text-align: center;">Aula Audiovisual</td>
+                            <td style="text-align: center;">
+                                <div class="action-buttons">
+                                    <button class="btn-check reject" title="Remover de este grupo" onclick="eliminarFila(this)">✕</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-top: 25px;">
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" class="submit-btn" style="background-color: #1b4d5f; width: auto; padding: 12px 20px;" onclick="agregarMateriaMock()">
+                        + Agregar Asignatura
+                    </button>
+                    <button type="button" id="btn-editar" class="submit-btn" style="background-color: #856404; width: auto; padding: 12px 20px;" onclick="conmutarModoEdicion()">
+                        Modificar Horas
+                    </button>
+                </div>
+                
+                <div class="button-group" style="margin-top: 0;">
+                    <button class="submit-btn" style="background-color: #265b17; min-width: 140px;" onclick="guardarSimulacion()">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
