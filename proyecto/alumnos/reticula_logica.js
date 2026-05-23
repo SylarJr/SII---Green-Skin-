@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (idEspecialidad && idEspecialidad !== 'ninguna' && idEspecialidad !== 'undefined' && idEspecialidad !== 'null') {
             console.log("4. Buscando materias específicas de la especialidad:", idEspecialidad);
             
-            // IMPORTANTE: Asegúrate de que la tabla en Supabase se llame exactamente 'especialidad_materia'
             const { data: espData, error: espError } = await supabaseClient
                 .from('especialidad_materia') 
                 .select(`
@@ -93,7 +92,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else if (espData && espData.length > 0) {
                 
                 // Paso A: Filtrar las materias comodín que digan "Especialidad"
-                // Ajusta la palabra 'especialidad' en el includes() si tu materia comodín se llama diferente (ej: 'Materia de Especialidad')
                 materiasFinales = materiasFinales.filter(item => {
                     const nombre = item.materia?.nombre_materia?.toLowerCase() || '';
                     return !nombre.includes('especialidad'); 
@@ -102,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // Paso B: Añadir las materias reales que encontramos en especialidad_materia
                 materiasFinales = [...materiasFinales, ...espData];
                 
-                // Paso C: Reordenar por semestre para que no queden hasta el final de la página
+                // Paso C: Reordenar por semestre
                 materiasFinales.sort((a, b) => (a.semestre_sugerido || 0) - (b.semestre_sugerido || 0));
             }
         }
@@ -112,8 +110,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        console.log("5. Dibujando materias en pantalla...");
-        renderizarReticula(materiasFinales, gridContainer);
+        // 5. NUEVO: Lógica para obtener estados de materias del alumno
+        console.log("5. Buscando estados individuales del alumno...");
+        const matricula = sessionStorage.getItem('matricula'); 
+        
+        const { data: estadosData, error: estadosError } = await supabaseClient
+            .from('alumno_materia')
+            .select('codigo_materia, estado')
+            .eq('no_control', matricula);
+
+        if (estadosError) throw estadosError;
+
+        // Convertimos el arreglo de estados en un diccionario para búsqueda rápida
+        const diccionarioEstados = {};
+        if (estadosData) {
+            estadosData.forEach(item => {
+                diccionarioEstados[item.codigo_materia] = item.estado;
+            });
+        }
+
+        console.log("6. Dibujando materias en pantalla...");
+        renderizarReticulaConColores(materiasFinales, gridContainer, diccionarioEstados);
         loadingMsj.style.display = 'none'; 
 
     } catch (error) {
@@ -122,9 +139,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-function renderizarReticula(materias, container) {
+function renderizarReticulaConColores(materias, container, diccionarioEstados) {
     const semestresObj = {};
 
+    // 1. Agrupar las materias por su semestre
     materias.forEach(item => {
         const sem = item.semestre_sugerido || 0; 
         if (!semestresObj[sem]) {
@@ -133,8 +151,10 @@ function renderizarReticula(materias, container) {
         semestresObj[sem].push(item);
     });
 
+    // Ordenamos los semestres
     const semestresKeys = Object.keys(semestresObj).map(Number).sort((a, b) => a - b);
 
+    // 2. Crear las columnas por cada semestre
     semestresKeys.forEach(semNum => {
         const columnaHTML = document.createElement('div');
         columnaHTML.className = 'semestre-columna';
@@ -142,23 +162,42 @@ function renderizarReticula(materias, container) {
         const tituloSemestre = semNum === 0 ? "Optativas" : `Semestre ${semNum}`;
         columnaHTML.innerHTML = `<h3>${tituloSemestre}</h3>`;
 
+        // 3. Llenar las tarjetas en la columna
         semestresObj[semNum].forEach(materiaObj => {
             const infoMateria = materiaObj.materia;
+            const codigo = materiaObj.codigo_materia;
             const nombreMateria = infoMateria ? infoMateria.nombre_materia : "Materia no encontrada";
             const creditos = infoMateria ? infoMateria.creditos : "-";
 
+            // Obtenemos el estado (si no existe, por defecto es 'no_permitida')
+            let estadoActual = diccionarioEstados[codigo] || 'no_permitida'; 
+            
+            // NORMALIZACIÓN: Minúsculas, sin espacios al inicio/final, y cambiamos espacios/guiones bajos por guiones
+            estadoActual = estadoActual.toLowerCase().trim().replace(/_| /g, '-');
+
+            // Prevención de errores comunes:
+            if (estadoActual === 'acreditado') {
+                estadoActual = 'acreditada';
+            }
+            
+            // Creamos la clase final, ejemplo: "estado-acreditada"
+            const claseColor = `estado-${estadoActual}`;
+
             const tarjeta = document.createElement('div');
-            tarjeta.className = 'materia-card';
+            
+            // Le inyectamos la clase de color a la tarjeta
+            tarjeta.className = `materia-card ${claseColor}`; 
             tarjeta.innerHTML = `
                 <div class="materia-nombre">${nombreMateria}</div>
                 <div class="materia-detalles">
-                    <span>${materiaObj.codigo_materia}</span>
+                    <span>${codigo}</span>
                     <span>Créditos: ${creditos}</span>
                 </div>
             `;
             columnaHTML.appendChild(tarjeta);
         });
 
+        // 4. Agregar la columna terminada al contenedor principal
         container.appendChild(columnaHTML);
     });
 }
