@@ -34,16 +34,16 @@ async function mostrarModalEspecialidad() {
     try {
         const { data, error } = await window.supabaseClient
             .from('especialidad')
-            .select('ID_Especialidad, Nombre_Especialidad')
-            .eq('ID_Carrera', carreraSesion); // Solo le mostramos las de Informática (o su carrera)
+            .select('id_especialidad, nombre_especialidad')
+            .eq('id_carrera', carreraSesion); // Solo le mostramos las de Informática (o su carrera)
 
         if (error) throw error;
 
         selectEspecialidad.innerHTML = '<option value="" disabled selected>Elige tu especialidad...</option>';
         data.forEach(esp => {
             const option = document.createElement('option');
-            option.value = esp.ID_Especialidad;
-            option.textContent = esp.Nombre_Especialidad;
+            option.value = esp.id_especialidad;
+            option.textContent = esp.nombre_especialidad;
             selectEspecialidad.appendChild(option);
         });
 
