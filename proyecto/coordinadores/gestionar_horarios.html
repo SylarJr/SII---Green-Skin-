@@ -42,9 +42,16 @@
                 </div>
 
                 <div class="input-group">
+                    <label for="select_especialidad">Especialidad (Opcional)</label>
+                    <select id="select_especialidad" class="select-input">
+                        <option value="ninguna" selected>Sin especialidad (Solo materias base)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
                     <label for="select_materia">Materia a impartir</label>
                     <select id="select_materia" class="select-input" required>
-                        <option value="" disabled selected>Cargando materias...</option>
+                        <option value="" disabled selected>Esperando selección de semestre...</option>
                     </select>
                 </div>
 
@@ -102,4 +109,4 @@
     <script src="../conexion_db.js"></script> 
     <script src="guardar_horarios.js"></script>
 </body>
-</html>>
+</html>
