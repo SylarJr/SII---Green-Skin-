@@ -191,14 +191,15 @@ cargarProfesores();
 cargarSemestres();
 cargarEspecialidades(); 
 
-// Registro completo de la planeación académica (Maestro-Detalle)
+// Guardado Maestro-Detalle Actualizado
 formHorario.addEventListener('submit', async function(event) {
     event.preventDefault();
     
+    // Este sigue siendo "I71", pero ya no es la Llave Primaria
     const idGrupoValor = document.getElementById('id_grupo').value.toUpperCase().trim();
 
     const datosGrupo = {
-        id_grupo: idGrupoValor,
+        id_grupo: idGrupoValor, 
         codigo_materia: selectMateria.value,
         profesor_asignado: selectProfesor.value,
         periodo_escolar: document.getElementById('periodo').value,
@@ -207,17 +208,24 @@ formHorario.addEventListener('submit', async function(event) {
     };
 
     try {
-        // Bloque A: Inserción del encabezado del grupo
-        const { error: errorGrupo } = await window.supabaseClient.from('grupo').insert([datosGrupo]);
+        // PASO A: Insertar y pedirle a Supabase que nos devuelva el ID generado
+        const { data: dataGrupo, error: errorGrupo } = await window.supabaseClient
+            .from('grupo')
+            .insert([datosGrupo])
+            .select('id_clase') // <-- ¡LA MAGIA! Pedimos la verdadera PK
+            .single();
+
         if (errorGrupo) throw errorGrupo;
         
-        // Bloque B: Mapeo y recolección de los días/horas añadidos dinámicamente
+        const idClaseGenerado = dataGrupo.id_clase;
+
+        // PASO B: Recolectar sesiones y atarlas al ID Único de la clase
         const filasSesiones = document.querySelectorAll('.fila-sesion');
         const listaSesiones = [];
 
         filasSesiones.forEach(fila => {
             listaSesiones.push({
-                id_grupo: idGrupoValor,
+                id_clase: idClaseGenerado, // Usamos el UUID, no el texto "I71"
                 dia_semana: fila.querySelector('.dia-select').value,
                 hora_inicio: fila.querySelector('.hora-inicio-input').value,
                 hora_fin: fila.querySelector('.hora-fin-input').value,
@@ -225,13 +233,16 @@ formHorario.addEventListener('submit', async function(event) {
             });
         });
 
-        // Bloque C: Registro masivo del desglose de sesiones semanales
-        const { error: errorSesiones } = await window.supabaseClient.from('grupo_sesion').insert(listaSesiones);
+        // PASO C: Insertar sesiones
+        const { error: errorSesiones } = await window.supabaseClient
+            .from('grupo_sesion')
+            .insert(listaSesiones);
+
         if (errorSesiones) throw errorSesiones;
 
         Swal.fire('¡Éxito!', 'El grupo y todas sus sesiones fueron configurados.', 'success');
         
-        // Limpieza profunda del formulario para la creación del siguiente grupo
+        // Limpieza de UI
         const filasExtra = document.querySelectorAll('.fila-sesion');
         for (let i = 1; i < filasExtra.length; i++) {
             filasExtra[i].remove();

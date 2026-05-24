@@ -9,7 +9,6 @@ if (!carreraAlumno || !semestreAlumno) {
 
 async function cargarHorarios() {
     try {
-        // Consulta limpia y directa (sin pasar por retícula)
         const { data, error } = await window.supabaseClient
             .from('grupo_sesion')
             .select(`
@@ -18,14 +17,15 @@ async function cargarHorarios() {
                 hora_fin,
                 aula,
                 grupo!inner (
-                    id_grupo,
+                    id_clase,   
+                    id_grupo,   
                     semestre,
                     materia (nombre_materia),
                     personal_institucional (nombres, apellidos) 
                 )
             `)
             .eq('grupo.id_carrera', carreraAlumno)
-            .eq('grupo.semestre', semestreAlumno); // ¡EL CANDADO MÁGICO Y SIMPLE!
+            .eq('grupo.semestre', semestreAlumno); 
 
         if (error) throw error;
 
@@ -39,11 +39,12 @@ async function cargarHorarios() {
         const gruposAgrupados = {};
 
         data.forEach(sesion => {
-            const id = sesion.grupo.id_grupo;
+            // ¡EL CAMBIO CLAVE! Agrupamos por el UUID único, no por el texto "I71"
+            const id_unico_clase = sesion.grupo.id_clase;
 
-            if (!gruposAgrupados[id]) {
-                gruposAgrupados[id] = {
-                    grupo: id,
+            if (!gruposAgrupados[id_unico_clase]) {
+                gruposAgrupados[id_unico_clase] = {
+                    grupoTexto: sesion.grupo.id_grupo, // Guardamos "I71" solo para mostrarlo
                     materia: sesion.grupo.materia ? sesion.grupo.materia.nombre_materia : 'Sin registrar',
                     maestro: sesion.grupo.personal_institucional 
                         ? `${sesion.grupo.personal_institucional.nombres} ${sesion.grupo.personal_institucional.apellidos}` 
@@ -54,7 +55,7 @@ async function cargarHorarios() {
 
             const hInicio = sesion.hora_inicio.slice(0, 5);
             const hFin = sesion.hora_fin.slice(0, 5);
-            gruposAgrupados[id].listaSesiones.push({
+            gruposAgrupados[id_unico_clase].listaSesiones.push({
                 dia: sesion.dia_semana,
                 inicio: hInicio,
                 fin: hFin,
@@ -62,6 +63,7 @@ async function cargarHorarios() {
             });
         });
 
+        // Imprimimos la tabla
         Object.values(gruposAgrupados).forEach(datosGrupo => {
             const bloquesHorariosHTML = datosGrupo.listaSesiones.map(s => 
                 `<div style="display: inline-block; background: rgba(0,123,255,0.05); border: 1px solid rgba(0,123,255,0.1); border-radius: 6px; padding: 4px 8px; margin: 2px; font-size: 0.85rem;">
@@ -71,7 +73,7 @@ async function cargarHorarios() {
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td style="font-weight: bold; color: #28a745;">${datosGrupo.grupo}</td>
+                <td style="font-weight: bold; color: #28a745;">${datosGrupo.grupoTexto}</td>
                 <td>${datosGrupo.materia}</td>
                 <td>${datosGrupo.maestro}</td>
                 <td>${bloquesHorariosHTML}</td>
