@@ -5,6 +5,7 @@ const contenedorSesiones = document.getElementById('contenedor-sesiones');
 const carreraCoordinador = sessionStorage.getItem('id_carrera'); 
 const selectMateria = document.getElementById('select_materia');
 const selectProfesor = document.getElementById('select_profesor');
+const selectSemestre = document.getElementById('select_semestre'); // Seleccionamos el DOM del semestre
 
 if (!carreraCoordinador) {
     Swal.fire('Error', 'No se detectó la carrera del coordinador. Vuelve a iniciar sesión.', 'error')
@@ -30,14 +31,27 @@ btnAgregarDia.addEventListener('click', () => {
     contenedorSesiones.appendChild(nuevaFila);
 });
 
-async function cargarMaterias() {
+// NUEVO: Escuchar cuando el coordinador cambia de semestre
+selectSemestre.addEventListener('change', (event) => {
+    const semestreSeleccionado = event.target.value;
+    if (semestreSeleccionado) {
+        cargarMaterias(semestreSeleccionado);
+    }
+});
+
+// MODIFICADO: Ahora recibe el semestre como parámetro
+async function cargarMaterias(semestre) {
     try {
-        console.log("Buscando materias para la retícula RET-INF-2020...");
+        console.log(`Buscando materias para la retícula RET-INF-2020 y semestre ${semestre}...`);
+        
+        // Ponemos un estado de carga visual
+        selectMateria.innerHTML = '<option value="" disabled selected>Buscando materias...</option>';
         
         const { data, error } = await window.supabaseClient
             .from('reticula_materia')
             .select('codigo_materia, materia(nombre_materia)')
-            .eq('clave_reticula', 'RET-INF-2020'); 
+            .eq('clave_reticula', 'RET-INF-2020')
+            .eq('semestre_sugerido', semestre); // Aquí filtramos por el semestre elegido
 
         if (error) throw error;
         
@@ -63,8 +77,8 @@ async function cargarMaterias() {
                 selectMateria.appendChild(option);
             });
         } else {
-             selectMateria.innerHTML = '<option value="" disabled>No hay materias en la retícula</option>';
-             console.warn("Advertencia: Supabase devolvió 0 materias. Revisa la tabla reticula_materia.");
+             selectMateria.innerHTML = '<option value="" disabled>No hay materias para este semestre</option>';
+             console.warn("Advertencia: No se encontraron materias para este semestre.");
         }
 
     } catch (error) {
@@ -97,31 +111,30 @@ async function cargarProfesores() {
 async function cargarSemestres() {
     try {
         const { data, error } = await window.supabaseClient
-            .from('semestre')
-            .select('id_semestre, descripcion'); // Quitamos el filtro de carrera si la tabla es general
+            .from('semestres')
+            .select('id_semestre, descripcion'); 
 
         if (error) throw error;
         
-        const select_Semestre = document.getElementById('select_semestre');
-        select_Semestre.innerHTML = '<option value="" disabled selected>Selecciona el semestre...</option>';
+        selectSemestre.innerHTML = '<option value="" disabled selected>Selecciona el semestre...</option>';
         
         data.forEach(s => {
             const option = document.createElement('option');
             option.value = s.id_semestre;
             option.textContent = s.descripcion;
-            select_Semestre.appendChild(option);
+            selectSemestre.appendChild(option);
         });
     } catch (error) {
         console.error("Error al cargar semestres:", error);
     }
 }
 
-cargarMaterias();
+// Inicialización
+// Ya no llamamos a cargarMaterias() aquí, se llama automáticamente cuando se elige un semestre
 cargarProfesores();
 cargarSemestres();
 
 
-// Guardado Maestro-Detalle
 // Guardado Maestro-Detalle
 formHorario.addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -134,7 +147,7 @@ formHorario.addEventListener('submit', async function(event) {
         profesor_asignado: selectProfesor.value,
         periodo_escolar: document.getElementById('periodo').value,
         id_carrera: carreraCoordinador,
-        semestre: parseInt(document.getElementById('select_semestre').value)
+        semestre: parseInt(selectSemestre.value)
     };
 
     try {
@@ -162,13 +175,18 @@ formHorario.addEventListener('submit', async function(event) {
 
         Swal.fire('¡Éxito!', 'El grupo y todas sus sesiones fueron configurados correctamente.', 'success');
         
-        contenedorSesiones.innerHTML = '';
-        // Re-insertamos la fila inicial limpia
-        // (Nota: Asegúrate de tener una función que genere la fila inicial si esto falla)
+        // Limpiamos los contenedores dinámicos extra
+        const filasExtra = document.querySelectorAll('.fila-sesion');
+        for (let i = 1; i < filasExtra.length; i++) {
+            filasExtra[i].remove();
+        }
+        
+        // Reiniciamos el formulario y los selects
         formHorario.reset();
+        selectMateria.innerHTML = '<option value="" disabled selected>Cargando materias...</option>';
 
     } catch (error) {
         console.error("Error completo:", error);
         Swal.fire('Error de Guardado', error.message, 'error');
     }
-}); // <--- ESTA LLAVE CIERRA EL EVENT LISTENER
+});
