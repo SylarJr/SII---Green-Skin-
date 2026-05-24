@@ -1,3 +1,74 @@
+// 1. Función para cargar aspirantes en la tabla
+async function cargarAspirantes() {
+    try {
+        const tbody = document.getElementById('tabla-aspirantes');
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Cargando aspirantes...</td></tr>';
+
+        // Consultamos a Supabase los aspirantes (EXCLUYENDO a los 'Aceptado')
+        const { data, error } = await window.supabaseClient
+            .from('aspirantes')
+            .select('*')
+            .neq('estado_solicitud', 'Aceptado') // <-- Este filtro hace la magia
+            .order('estado_solicitud', { ascending: false }); 
+
+        if (error) throw error;
+
+        // Limpiamos el tbody
+        tbody.innerHTML = '';
+
+        if (data && data.length > 0) {
+            data.forEach(aspirante => {
+                const tr = document.createElement('tr');
+                
+                // Nombre completo
+                const nombreCompleto = `${aspirante.nombres} ${aspirante.apellido_paterno} ${aspirante.apellido_materno}`;
+                
+                // Formato de Estado con colores
+                let colorEstado = '#333';
+                if(aspirante.estado_solicitud === 'Rechazado') colorEstado = '#dc3545';
+                if(aspirante.estado_solicitud === 'Pendiente') colorEstado = '#ffc107';
+
+                // Lógica de los botones con la palomita (✔) y la equis (✖)
+                let botonesHtml = '';
+                if (aspirante.estado_solicitud === 'Pendiente') {
+                    // Usamos title="..." para que al pasar el mouse por encima diga "Aceptar" o "Rechazar"
+                    botonesHtml = `
+                        <button onclick="aceptarAspirante('${aspirante.curp}', '${aspirante.contrasena}', '${aspirante.id_carrera}')" class="submit-btn" style="background: #28a745; margin-right: 5px; padding: 5px 10px; font-size: 1rem; width: auto; font-weight: bold; cursor: pointer;" title="Aceptar">
+                            ✔
+                        </button>
+                        <button onclick="rechazarAspirante('${aspirante.curp}')" class="submit-btn" style="background: #dc3545; padding: 5px 10px; font-size: 1rem; width: auto; font-weight: bold; cursor: pointer;" title="Rechazar">
+                            ✖
+                        </button>
+                    `;
+                } else {
+                    botonesHtml = `<span style="color: #666; font-size: 0.85rem; font-style: italic;">Sin acciones</span>`;
+                }
+
+                // Construimos la fila
+                tr.innerHTML = `
+                    <td>${aspirante.curp}</td>
+                    <td>${nombreCompleto}</td>
+                    <td>${aspirante.nivel_ingreso}<br><small style="color: #666;">${aspirante.campus_universitario}</small></td>
+                    <td style="font-weight: bold; color: ${colorEstado};">${aspirante.estado_solicitud || 'Pendiente'}</td>
+                    <td>${botonesHtml}</td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+        } else {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">No hay aspirantes pendientes por revisar.</td></tr>';
+        }
+
+    } catch (error) {
+        console.error("Error al cargar aspirantes:", error);
+        const tbody = document.getElementById('tabla-aspirantes');
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: red;">Error al cargar datos: ${error.message}</td></tr>`;
+    }
+}
+
+// Llamar a la función apenas cargue el script
+cargarAspirantes();
+
 // 2. Función para Aceptar y convertir en Alumno
 async function aceptarAspirante(curp, contrasena, idCarrera) {
     const anio = new Date().getFullYear().toString().slice(-2);
