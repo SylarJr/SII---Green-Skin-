@@ -11,7 +11,7 @@
     <nav class="navbar">
         <ul class="nav-links">
             <li><a href="coordinadores.html">Inicio</a></li>
-            <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+            <li><a href="" onclick="cerrarSesion(); return false;">Cerrar Sesión</a></li>
         </ul>
     </nav>
 
@@ -108,5 +108,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../conexion_db.js"></script> 
     <script src="guardar_horarios.js"></script>
+
+    <script>
+        function cerrarSesion() {
+            sessionStorage.clear();
+            window.location.replace('../Inicial.html');
+        }
+    </script>
 </body>
 </html>
