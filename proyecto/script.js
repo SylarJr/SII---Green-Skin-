@@ -32,6 +32,8 @@ document.getElementById('form-admin').addEventListener('submit', async function(
                 window.location.replace('coordinadores/coordinadores.html');
             } else if (nombreRol === 'profesor' || nombreRol === 'docente') {
                 window.location.replace('profesores/profesores.html');
+            } else if (nombreRol === 'finanzas') {
+                window.location.replace('Financieros/Finanzas.html');
             } else {
                 console.log("Rol no tiene una vista asignada:", nombreRol);
                 alert("Bienvenido, pero tu rol no tiene una página asignada aún.");

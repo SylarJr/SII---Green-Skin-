@@ -5,3 +5,6 @@ sean redireccionadas a las paginas que les corresponden, esto usando la base de 
 correspondientes a lo de la especialidad.
 
 22/05/2026: ya imprimen la especialidad correspondiente. Tambien se realizo el sistema de captura de pagos y consulta de los pagos realizados 
+
+25/05/2026: se arreglo el problema de la base de datos que hacie que el personal automaticamente entrara como "coordinador".
+Luego solo se agrego poder entrar a finanzas con su rol y profesores ya cierra sesion como debia
