@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagos de Trámites - ITLM</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+    <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
+</head>
+<body>
+    
+    <img src="/proyecto/Imagenes/Dragon_2.png" class="img-pop back-part_3" alt="Decoración Fondo">
+
+    <nav class="navbar">
+        <div class="navbar-logo-left-container">
+            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+        </div>
+        <ul class="nav-links">
+            <li><a href="/proyecto/alumnos/alumnos.html">Inicio</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Académico <span class="arrow">▼</span></a>
+                <ul class="dropdown-content">
+                    <li><a href="Calificaciones.html">Ver Calificaciones</a></li>
+                    <li><a href="horarios_alumnos.html">Horario de Clases</a></li>
+                    <li><a href="Reticula.html">Carga Académica</a></li>
+                    <li><a href="#">Kardex</a></li>
+                    <li><a href="Reticula.html">Retícula</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Servicios <span class="arrow">▼</span></a>
+                <ul class="dropdown-content">
+                    <li><a href="Pagos.html" style="color: #34db53; font-weight: bold;">Pagar Trámites</a></li>
+                    <li><a href="#">Seguro Facultativo</a></li>
+                    <li><a href="#">Servicio Social</a></li>
+                </ul>
+            </li>
+            <li><a href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
+        </ul>
+        <div class="navbar-logo-right-container">
+            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+        </div>
+    </nav>
+
+    <main class="main-content" style="padding-top: 140px; padding-bottom: 40px;">
+        <div class="glass-card">
+            <h1 style="color: #1a5c24;">Generación de Orden de Pago</h1>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
+            
+            <p style="margin-bottom: 25px; font-size: 0.9rem; color: #555;">
+                Selecciona el trámite institucional que deseas realizar para generar tu folio de pago pendiente.
+            </p>
+            
+            <form id="form-generar-pago" class="login-form active">
+                <div class="input-group">
+                    <label for="select-concepto">Concepto del Trámite</label>
+                    <select id="select-concepto" class="select-input" required onchange="actualizarMontoVisual(this)">
+                        <option value="" disabled selected>Elige una opción...</option>
+                        <option value="Inscripción" data-monto="3700.00">Inscripción / Reinscripción </option>
+                        <option value="Constancia" data-monto="250.00">Constancia de Estudios </option>
+                        <option value="Duplicado de credencial" data-monto="200.00">Duplicado de Credencial</option>
+                    </select>
+                </div>
+
+                <div style="margin: 20px 0; text-align: center; font-size: 1.1rem; font-weight: bold; color: #1b4d5f;">
+                    Pago de: <span id="txt-monto-visual">$0.00</span>
+                </div>
+                
+                <button type="submit" class="submit-btn" style="width: 100%;">
+                    📋 Solicitar Orden de Pago
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/proyecto/conexion_db.js"></script> 
+    <script src="pagos_alumno.js"></script>
+    <script>
+        function cerrarSesion() {
+            sessionStorage.clear();
+            window.location.replace('../Inicial.html');
+        }
+        // Función estética para cambiar el monto en tiempo real en la pantalla
+        function actualizarMontoVisual(selectElement) {
+            const opcionSeleccionada = selectElement.options[selectElement.selectedIndex];
+            const monto = opcionSeleccionada.getAttribute('data-monto');
+            document.getElementById('txt-monto-visual').innerText = `$${parseFloat(monto).toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

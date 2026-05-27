@@ -36,31 +36,34 @@
             <h1>Registro de Nuevo Pago</h1>
             <p style="margin-bottom: 20px; color: #555;">Captura el cobro del trámite solicitado por el alumno.</p>
             
-            <form id="form-captura-pago" class="login-form active">
-                <div class="input-group">
-                    <label for="no_control">Número de Control del Alumno</label>
-                    <input type="text" id="no_control" placeholder="Ej: 21100234" required>
-                </div>
+            <<form id="form-buscar-pago" class="login-form active">
+    <div class="input-group">
+        <label for="no_control_busqueda">Número de Control del Alumno</label>
+        <div style="display: flex; gap: 10px;">
+            <input type="text" id="no_control_busqueda" placeholder="Ej: 26712034" required>
+            <button type="button" class="submit-btn" style="width: auto;" onclick="buscarPagoPendiente()">Buscar</button>
+        </div>
+    </div>
+</form>
 
-                <div class="input-group">
-                    <label for="concepto">Concepto del Pago</label>
-                    <select id="concepto" class="select-input" required>
-                        <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="Inscripción">Inscripción</option>
-                        <option value="Constancia">Constancia</option>
-                        <option value="Duplicado de credencial">Duplicado de credencial</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="monto">Monto ($)</label>
-                    <input type="number" step="0.01" id="monto" placeholder="Ej: 250.00" required>
-                </div>
-
-                <div class="button-group" style="width: 100%; max-width: none;">
-                    <button type="submit" class="submit-btn" style="width: 100%; max-width: none;">Guardar Pago</button>
-                </div>
-            </form>
+<div id="contenedor-resultados-pendientes" style="display: none; margin-top: 20px; text-align: left;">
+    <h3 style="color: #1b4d5f; margin-bottom: 15px;">Trámites Pendientes del Alumno</h3>
+    
+    <div class="table-container">
+        <table class="grades-table">
+            <thead>
+                <tr>
+                    <th>Folio</th>
+                    <th>Concepto</th>
+                    <th>Monto</th>
+                    <th style="text-align: center;">Acción</th>
+                </tr>
+            </thead>
+            <tbody id="tabla-pendientes-body">
+                </tbody>
+        </table>
+    </div>
+</div>
         </div>
 
     </main>

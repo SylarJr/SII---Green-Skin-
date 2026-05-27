@@ -8,3 +8,7 @@ correspondientes a lo de la especialidad.
 
 25/05/2026: se arreglo el problema de la base de datos que hacie que el personal automaticamente entrara como "coordinador".
 Luego solo se agrego poder entrar a finanzas con su rol y profesores ya cierra sesion como debia
+
+26/05/2026: se cambio la interfaz de pago y generacion de pagos, ahora el usuario puede generar que quiere pagar lo cual aparecera en sistema de finanzas
+con ello el alumno podra pagar lo que quiera, cosa la cual antes no esta va, tambien cambio la interface de fianzas para que sea mas intuitiva y compatible
+con el generar pagos del alumno, tambien cree una politica en la base de datos para que haga un update y cambie el pago de pendiente a pagado
