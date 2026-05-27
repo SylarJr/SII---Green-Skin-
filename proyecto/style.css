@@ -5,14 +5,14 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
+        box-sizing: border-box;
+    }
 
-html, body {
-    width: 100%;
-    height: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow-x: hidden; 
+    html, body {
+        width: 100%;
+        height: 100%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow-x: hidden; 
 }
 
 /* ==========================================================================
@@ -656,17 +656,41 @@ body {
         width: 100%;
     }
 }
+
 /* ==========================================================================
    CÓDIGOS DE COLORES PARA LA RETÍCULA
    ========================================================================== */
-.estado-acreditada { background-color: #a2e8b6 !important; border-left-color: #27ae60 !important; color: #1a5c24; } /* Verde */
-.estado-cursando { background-color: #7b2cbf !important; border-left-color: #5a189a !important; color: white; } /* Morado */
-.estado-sin-acreditar { background-color: #fce205 !important; border-left-color: #f39c12 !important; color: #555; } /* Amarillo */
-.estado-repeticion { background-color: #5a189a !important; border-left-color: #3c096c !important; color: white; } /* Morado oscuro */
-.estado-curso-especial { background-color: #f77f00 !important; border-left-color: #d62828 !important; color: white; } /* Naranja */
-.estado-reprobado { background-color: #d62828 !important; border-left-color: #9b2226 !important; color: white; } /* Rojo */
-.estado-posible { background-color: #00b4d8 !important; border-left-color: #0077b6 !important; color: white; } /* Azul */
-.estado-no-permitida { background-color: #f8f9fa !important; border-left-color: #ced4da !important; color: #6c757d; } /* Blanco/Gris */
+.estado-acreditada { 
+    background-color: #a2e8b6 !important; 
+    border-left-color: #27ae60 !important;
+     color: #1a5c24; } /* Verde */
+.estado-cursando {
+     background-color: #7b2cbf !important; 
+     border-left-color: #5a189a !important; 
+     color: white; } /* Morado */
+.estado-sin-acreditar { 
+    background-color: #fce205 !important; 
+    border-left-color: #f39c12 !important; 
+    color: #555; } /* Amarillo */
+.estado-repeticion { 
+    background-color: #5a189a !important;
+     border-left-color: #3c096c !important;
+      color: white; } /* Morado oscuro */
+.estado-curso-especial {
+     background-color: #f77f00 !important; 
+    border-left-color: #d62828 !important;
+     color: white; } /* Naranja */
+.estado-reprobado {
+     background-color: #d62828 !important;
+     border-left-color: #9b2226 !important;
+      color: white; } /* Rojo */
+.estado-posible {
+     background-color: #00b4d8 !important; 
+     border-left-color: #0077b6 !important;
+      color: white; } /* Azul */
+.estado-no-permitida { background-color: #f8f9fa !important;
+     border-left-color: #ced4da !important;
+      color: #6c757d; } /* Blanco/Gris */
 
 /* Leyenda de colores (Footer) */
 .leyenda-colores {
@@ -688,4 +712,13 @@ body {
     font-weight: bold;
     padding: 5px 10px;
     border-radius: 4px;
+}
+
+/* ==========================================================================
+   Arreglo pequeños para la página de Mis Materias (Profesores)
+   ========================================================================== */
+
+   .materia-card-profesor:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12) !important;
 }
