@@ -1,0 +1,64 @@
+En la elaboración del proyecto, el trabajo realizado por nuestro equipo fue mayormente efectivo y muy 
+bien llevado a cabo, se trabajó con retrasos mínimos que fueron solucionados en cuestión de un par de
+días.
+
+Que salió bien:
+
+-El trabajo en equipo fue algo que se mantuvo durante todo el proyecto, cada uno de nosotros se encargó 
+de sus tareas y se apoyó mutuamente para cumplir con los objetivos establecidos. Cuando uno quedeba 
+atascado en una tarea, los demás miembros del equipo estaban dispuestos a ayudar y colaborar para 
+encontrar una solución aportando con su conocimiento y experiencia.
+
+-La comunicación entre los miembros del equipo fue constante y efectiva, lo que permitió resolver dudas 
+y problemas de manera rápida, al tener las facilidades de las herramientas de comunicación actuales 
+podiamos mostrar los avances en tiempo real y tambien encontrar y reportar errores de manera eficiente.
+
+- La planificación y organización del proyecto fue adecuada, se establecieron metas claras y se asignaron
+responsabilidades de manera equitativa, lo que permitió un flujo de trabajo eficiente y una entrega 
+oportuna de las tareas. Se utilizó una metodología ágil que permitió adaptarnos a los cambios y ajustes 
+necesarios durante el desarrollo del proyecto, lo que contribuyó a su éxito.
+
+- La implementación de la página de inicio de sesión y el sistema de autenticación fue un gran logro, 
+ya que permite a los usuarios acceder de manera segura a sus cuentas y proteger su información personal. 
+la integración de los roles de usuario y la gestión de permisos también fue un aspecto positivo, 
+ya que permite una administración eficiente de los usuarios y sus privilegios dentro del sistema así 
+como la separación de las páginas de administración y usuario.
+
+- La creación de las tablas en Supabase y la inserción de datos fue un proceso exitoso, lo que permitió
+una gestión eficiente de la información académica en el sistema. La organización de las tablas y la
+relación entre ellas fue adecuada, lo que facilitó la consulta y manipulación de los datos. La implementación
+de la tabla de especialidad y la tabla intermedia entre Materia y Especialidad fue un acierto, ya que
+permite una mejor organización y gestión de la información académica en el sistema, facilitando la asignación
+de materias a las especialidades y mejorando la estructura de la base de datos.
+
+-El diseño y desarrollo de la interfaz de usuario fue otro aspecto positivo, ya que se logró crear una 
+experiencia de usuario intuitiva y atractiva. La implementación de un diseño responsive permitió que la 
+aplicación sea accesible desde diferentes dispositivos, lo que mejoró la usabilidad y la satisfacción del 
+usuario.
+
+Que salió mal:
+
+- Hubo algunos retrasos en la entrega de avances, aunque fueron mínimos, esto se debió a problemas
+personales de algunos miembros del equipo, lo que afectó el ritmo de trabajo en algunos momentos.
+
+- La falta de experiencia en ciertas áreas llevó a errores que tuvieron que ser corregidos, lo que retrasó 
+un poco el progreso del proyecto.
+
+- La planificación inicial no fue lo suficientemente detallada, lo que llevó a algunos malentendidos
+sobre las responsabilidades y los plazos, lo que causó algunos retrasos en la entrega de tareas.
+
+- El no dejar claro los limites de cada miembro del equipo en cuanto a las tareas y responsabilidades llevó 
+a algunos errores provocados por la falta de entendimiento con respecto al trabajo de los demás miembros del
+quipo, que ocasionón algunos intentos de "arreglar" el trabajo de los demás sin tener el conocimiento necesario 
+para hacerlo, lo que llevó a algunos errores que tuvieron que ser corregidos posteriormente.
+
+- Al no haber establecido un horario de trabajo claro al inicio del proyecto, hubo momentos en los que algunos 
+miembros del equipo no estaban disponibles para colaborar o resolver problemas, lo que afectó la eficiencia 
+del trabajo en equipo y provocó algunos retrasos.
+
+- La falta de comprobación y revisión de los avances antes de su envío llevó a algunos errores que tuvieron 
+que ser corregidos posteriormente y que casí ocasionan la perdida de la información dentro de la base de datos.
+
+En general, el proyecto fue un éxito gracias al esfuerzo y dedicación de todo el equipo, aunque hubo 
+algunos contratiempos, se lograron superar y se entregó un producto final de calidad. La experiencia 
+adquirida durante el proyecto fue invaluable y nos permitió aprender y crecer como profesionales.
