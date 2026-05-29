@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="Imagenes/tecnm.png">
 <script>
     if (sessionStorage.getItem('sesion_activa') === 'true') {
         const rol = sessionStorage.getItem('rol_usuario');
@@ -17,6 +18,8 @@
         } else if (rol === 'coordinador') {
             window.location.replace('coordinadores/coordinadores.html');
         }
+        } else if (rol === 'finanzas') {
+            window.location.replace('Financieros/Finanzas.html');
     }
 </script>
 </head>
@@ -70,7 +73,10 @@
                     <label>Contraseña</label>
                     <input type="password" id="aspirante_pass" placeholder="********" required>
                 </div>
-                <button type="submit" class="submit-btn">Ingresar</button>
+                <br>
+                <a href="aspirantes/aspirantesVista.html">
+                    <button type="button" class="submit-btn">Ingresar</button>
+                </a>
                 <br>
                 <a href="aspirantes/aspirantes.html">
                     <button type="button" class="submit-btn">Nueva solicitud</button>
@@ -84,7 +90,6 @@
         <img src="Imagenes/background-remover-1778889384066.png" class="img-pop front-part" alt="Decoración Frente">
 
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="conexion_db.js"></script>
     <script src="script.js"></script>

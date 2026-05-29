@@ -29,3 +29,32 @@
 -se arreglo el script.js para que funcione para "Retiucla.html"
 -Se arreglo el Style.css para que funcione para "Reticula.html"
 -Se agrego el diseño de la pagina de Reticula
+
+11:42 21 de mayo del 2026
+-Un cambuio de diseño para la pagina de "Reticula".
+-Se agrego la Pagina de Calificaciones
+
+12:00 21 de mayo del 2026
+-Se agrego el diseño de la pagina de Calificaciones
+-Se volvió funcional otra vez de nuevo el script.js para restringir el acceso a las paginas de alumnos.
+
+20:00 22 de mayo del 2026
+-Se agregó el archivo de "Editar_Horarios.html" para que los coordinadores puedan editar los horarios de las clases de cada alumno.
+
+21:45 22 de mayo del 2026
+-Se agregó el diseño de la pagina de "Editar_Horarios.html"
+
+19:00 25 de mayo del 2026
+-se colocó una nueva imagen en la carpeta de "Imagenes" llamada "tecnm.png" para usarla como icono de la pestaña del navegador (Favicon)
+-Se agregó a cada de una de las paginas un icono a la pestaña del navegador (Favicon) para que se vea mas profesional y se identifique con el instituto.
+
+17:10 26 de  mayo del 2026
+-Se prepara el diseño de la pagina de "Mis_Materias.html" para que los profesores puedan ver la lista de las materias que va a impartir cada semestre.
+-se desactivó el script.js para que los demas no puedan entrar a la pagina de profesores. 
+
+17:45 26 de mayo del 2026
+-Se agregó el diseño de la pagina de "Mis_Materias.html" para que los profesores puedan ver la lista de las materias que va a impartir cada semestre.
+-Se mejoró la url para el "Favicon" de cada uno de los archivos para que se vea el icono en la pestaña del navegador.
+
+12:25 27 de mayo del 2026
+-Se habilitó el script.js para que solo los profesores puedan entrar a la pagina de profesores.

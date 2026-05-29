@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración - Gestión de Aspirantes</title>
     <link rel="stylesheet" href="/proyecto/style.css">
+        <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
 </head>
 <body>
 
     <nav class="navbar">
         <ul class="nav-links">
             <li><a href="coordinadores.html">Inicio</a></li>
-            <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+            <li><a href="" onclick="cerrarSesion(); return false;">Cerrar Sesión</a></li>
         </ul>
     </nav>
 
@@ -40,5 +41,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../conexion_db.js"></script> 
     <script src="gestion_aspirantes.js"></script>
+    <script>
+        function cerrarSesion() {
+            sessionStorage.clear();
+            window.location.replace('../Inicial.html');
+        }
+    </script>
 </body>
 </html>

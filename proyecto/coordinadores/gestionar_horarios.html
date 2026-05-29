@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Horarios - Coordinación</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+        <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
+</head>
+<body>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="coordinadores.html">Inicio</a></li>
+            <li><a href="" onclick="cerrarSesion(); return false;">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <div class="glass-card registration-card" style="max-width: 850px;">
+            <h1>Crear Nuevo Grupo y Sesiones</h1>
+            <p>Define los datos del grupo y añade los días de clase correspondientes.</p>
+            <hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
+
+            <form id="form-crear-horario" class="login-form active">
+                
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="id_grupo">Clave del Grupo (Ej. INF-6A)</label>
+                        <input type="text" id="id_grupo" required style="text-transform: uppercase;">
+                    </div>
+                    <div class="input-group">
+                        <label for="periodo">Periodo Escolar</label>
+                        <input type="text" id="periodo" placeholder="Ej. 2026-1" required>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="select_semestre">Semestre al que pertenece el grupo</label>
+                    <select id="select_semestre" class="select-input" required>
+                        <option value="" disabled selected>Selecciona el semestre...</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="select_especialidad">Especialidad (Opcional)</label>
+                    <select id="select_especialidad" class="select-input">
+                        <option value="ninguna" selected>Sin especialidad (Solo materias base)</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="select_materia">Materia a impartir</label>
+                    <select id="select_materia" class="select-input" required>
+                        <option value="" disabled selected>Esperando selección de semestre...</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="select_profesor">Profesor Asignado</label>
+                    <select id="select_profesor" class="select-input" required>
+                        <option value="" disabled selected>Cargando profesores...</option>
+                    </select>
+                </div>
+
+                <h3 style="margin-top: 25px; color: #333;">Distribución del Tiempo (Sesiones)</h3>
+                <p style="font-size: 0.85rem; margin-bottom: 15px;">Añade los días de la semana en los que se impartirá este grupo.</p>
+
+                <div id="contenedor-sesiones">
+                    <div class="form-row fila-sesion" style="background: rgba(0,0,0,0.02); padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid rgba(0,0,0,0.05);">
+                        <div class="input-group">
+                            <label>Día</label>
+                            <select class="select-input dia-select" required>
+                                <option value="Lunes">Lunes</option>
+                                <option value="Martes">Martes</option>
+                                <option value="Miércoles">Miércoles</option>
+                                <option value="Jueves">Jueves</option>
+                                <option value="Viernes">Viernes</option>
+                                <option value="Sábado">Sábado</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Hora Inicio</label>
+                            <input type="time" class="hora-inicio-input" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Hora Fin</label>
+                            <input type="time" class="hora-fin-input" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Aula</label>
+                            <input type="text" class="aula-input" placeholder="Ej. Aula 12" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="btn-agregar-dia" class="submit-btn" style="background: #28a745; margin-bottom: 20px; font-size: 0.9rem; padding: 8px 15px; width: auto;">
+                    + Añadir otro día a este grupo
+                </button>
+
+                <div class="button-group">
+                    <button type="submit" class="submit-btn">Guardar Grupo Completo</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../conexion_db.js"></script> 
+    <script src="guardar_horarios.js"></script>
+
+    <script>
+        function cerrarSesion() {
+            sessionStorage.clear();
+            window.location.replace('../Inicial.html');
+        }
+    </script>
+</body>
+</html>

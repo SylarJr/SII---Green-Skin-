@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Maestros - Inicio</title>
     <link rel="stylesheet" href="/proyecto/style.css">
+    <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
  <script>
     function verificarSesion() {
         if (sessionStorage.getItem('sesion_activa') !== 'true' || sessionStorage.getItem('rol_usuario') !== 'docente') {
@@ -36,7 +37,7 @@
                             <a href="#" class="dropbtn">Herramientas <span class="arrow">▼</span></a>
                             <ul class="dropdown-content">
                                 <li><a href="/proyecto/profesores/CapCalificaciones.html">Capturar Calificaciones</a></li>
-                                <li><a href="#">Horario de Clases</a></li>
+                                <li><a href="Mis_Materias.html">Mis materias</a></li>
                             </ul>
                         </li>
 
@@ -47,7 +48,7 @@
                             </ul>
                         </li>
                         
-                        <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+                        <li><a href="#" onclick="cerrarSesion(); return false;">Cerrar Sesión</a></li>
                     </ul>
                 </div>
 

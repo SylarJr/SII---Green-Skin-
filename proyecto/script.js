@@ -1,43 +1,43 @@
-// === LÓGICA PARA PERSONAL ADMINISTRATIVO ===
+// === LÓGICA PARA PERSONAL ADMINISTRATIVO (SEGURO)
 document.getElementById('form-admin').addEventListener('submit', async function(event) {
     event.preventDefault(); 
-    console.log("Iniciando proceso de login de personal...");
+    console.log("Iniciando proceso de login seguro de personal...");
 
     var user = document.getElementById('admin_usuario').value;
     var pass = document.getElementById('admin_pass').value;
 
     try {
-        // Consultamos la tabla personal_institucional y traemos el nombre del rol asociado
-        const { data, error } = await supabaseClient
-            .from('personal_institucional')
-            .select('*, roles(nombre_rol)') // Trae la info de la tabla roles unida por id_rol
-            .eq('usuario', user)
-            .eq('contrasena', pass);
+        const { data, error } = await window.supabaseClient.rpc('iniciar_sesion_admin', { 
+            p_usuario: user, 
+            p_pass: pass 
+        });
 
         if (error) throw error;
 
         if (data && data.length > 0) {
-            // Obtenemos el nombre del rol directamente de la base de datos
-            // Lo pasamos a minúsculas para evitar problemas de mayúsculas/minúsculas (ej. "Coordinador" -> "coordinador")
-            let nombreRol = data[0].roles.nombre_rol.toLowerCase(); 
+            let infoAdmin = data[0]; 
+            let nombreRol = infoAdmin.nombre_rol.toLowerCase(); 
 
             sessionStorage.setItem('sesion_activa', 'true');
-            sessionStorage.setItem('rol_usuario', nombreRol); // Guardamos el rol real que viene de la BD
-            sessionStorage.setItem('usuario', user);
+            sessionStorage.setItem('rol_usuario', nombreRol);
+            sessionStorage.setItem('usuario', infoAdmin.usuario_valido);
+            
+            if (infoAdmin.id_carrera) {
+                sessionStorage.setItem('id_carrera', infoAdmin.id_carrera);
+            }
             
             alert('Inicio de sesión correcto como ' + nombreRol);
 
-            // Redirigimos dependiendo del rol que detectamos en la base de datos
             if (nombreRol === 'coordinador') {
                 window.location.replace('coordinadores/coordinadores.html');
             } else if (nombreRol === 'profesor' || nombreRol === 'docente') {
                 window.location.replace('profesores/profesores.html');
+            } else if (nombreRol === 'finanzas') {
+                window.location.replace('Financieros/Finanzas.html');
             } else {
-                // Por si en el futuro agregas un rol nuevo y se te olvida poner el redireccionamiento
                 console.log("Rol no tiene una vista asignada:", nombreRol);
                 alert("Bienvenido, pero tu rol no tiene una página asignada aún.");
             }
-            
         } else {
             alert('Usuario o contraseña incorrectos');
         }
@@ -47,35 +47,35 @@ document.getElementById('form-admin').addEventListener('submit', async function(
     }
 });
 
-// === LÓGICA PARA ALUMNOS ===
+// === LÓGICA PARA ALUMNOS (SEGURO)
 document.getElementById('form-alumno').addEventListener('submit', async function(event) {
     event.preventDefault(); 
-    console.log("Iniciando proceso de login de alumno...");
+    console.log("Iniciando proceso de login seguro de alumno...");
 
     var matricula = document.getElementById('alumno_matricula').value;
     var pass = document.getElementById('alumno_pass').value;
 
     try {
-        const { data, error } = await window.supabaseClient // Agregado window. por seguridad
-            .from('alumno') 
-            .select('*')
-            .eq('no_control', matricula) 
-            .eq('contrasena', pass);     
+        const { data, error } = await window.supabaseClient.rpc('iniciar_sesion_alumno', {
+            p_matricula: matricula,
+            p_pass: pass
+        });
 
         if (error) throw error;
 
         if (data && data.length > 0) {
-            let infoAlumno = data[0]; // Capturamos la fila entera
+            let infoAlumno = data[0]; 
 
             sessionStorage.setItem('sesion_activa', 'true');
             sessionStorage.setItem('rol_usuario', 'alumno');
-            sessionStorage.setItem('matricula', matricula);
+            sessionStorage.setItem('matricula', infoAlumno.no_control);
             
-            // ¡NUEVO! Guardamos la carrera para cargar su retícula
             let carrera = infoAlumno.id_carrera || infoAlumno.ID_Carrera;
             sessionStorage.setItem('id_carrera', carrera);
-            
-            // ¡NUEVO! Guardamos la especialidad (si aún no tiene, guardamos 'ninguna')
+
+            // 🌟 INTEGRACIÓN PASO 2: Guardamos el semestre actual en el navegador
+            sessionStorage.setItem('semestre_actual', infoAlumno.semestre_actual);
+
             let especialidad = infoAlumno.id_especialidad || infoAlumno.ID_Especialidad;
             sessionStorage.setItem('id_especialidad', especialidad ? especialidad : 'ninguna');
             
@@ -90,31 +90,29 @@ document.getElementById('form-alumno').addEventListener('submit', async function
     }
 });
 
-// === LÓGICA PARA ASPIRANTES ===
-document.getElementById('form-aspirante').addEventListener('submit', async function(event) {
+// === LÓGICA PARA ASPIRANTES (SEGURO)
+document.getElementById('form-aspirantes').addEventListener('submit', async function(event) {
     event.preventDefault(); 
-    console.log("Iniciando proceso de login de aspirante...");
+    console.log("Iniciando proceso de login seguro de aspirante...");
 
-    var curp = document.getElementById('aspirante_curp').value.toUpperCase();
+    var curpIngresada = document.getElementById('aspirante_curp').value.toUpperCase();
     var pass = document.getElementById('aspirante_pass').value;
 
     try {
-        const { data, error } = await supabaseClient
-            .from('aspirantes')        // Tabla en minúsculas
-            .select('*')
-            .eq('curp', curp)          // Columna en minúsculas
-            .eq('contrasena', pass);   // Columna en minúsculas
+        const { data, error } = await window.supabaseClient.rpc('iniciar_sesion_aspirante', {
+            p_curp: curpIngresada,
+            p_pass: pass
+        });
 
         if (error) throw error;
 
         if (data && data.length > 0) {
-            // Guardamos la sesión
             sessionStorage.setItem('sesion_activa', 'true');
             sessionStorage.setItem('rol_usuario', 'aspirante');
-            sessionStorage.setItem('curp', curp);
+            sessionStorage.setItem('curp', data[0].curp_valida);
             
             alert('Inicio de sesión correcto');
-            window.location.replace('aspirantes/aspirantes.html'); // Ruta corregida
+            window.location.replace('aspirantes/aspirantesVista.html'); 
         } else {
             alert('CURP o contraseña incorrectas');
         }
@@ -124,7 +122,7 @@ document.getElementById('form-aspirante').addEventListener('submit', async funct
     }
 });
 
-// === FUNCIONES DE INTERFAZ ===
+// === FUNCIONES DE INTERFAZ 
 function switchTab(role, selectedBtn) {
     const forms = document.querySelectorAll('.login-form');
     const buttons = document.querySelectorAll('.tab-btn');
@@ -154,21 +152,31 @@ function mostrarFormulario(formId) {
 
 // === FUNCIONES PARA FINANZAS ===
 function filtrarCategoriaFinanzas(categoria, botonSeleccionado) {
-    // 1. Alternar la clase 'active' en los botones de las pestañas
     const botones = document.querySelectorAll('.tab-financiero-btn');
     botones.forEach(btn => btn.classList.remove('active'));
     botonSeleccionado.classList.add('active');
 
-    // 2. Filtrar las filas de la tabla por el atributo 'data-categoria'
     const filas = document.querySelectorAll('#tabla-pagos-financiero tr');
     
     filas.forEach(fila => {
         const categoriaFila = fila.getAttribute('data-categoria');
         
         if (categoria === 'todos' || categoriaFila === categoria) {
-            fila.style.display = ''; // Muestra la fila (vuelve al estado original por defecto de la tabla)
+            fila.style.display = ''; 
         } else {
             fila.style.display = 'none'; 
         }
     });
+}
+
+function cambiarSemestre(semestreSeleccionado) {
+    const bloques = document.querySelectorAll('.semester-block');
+    bloques.forEach(bloque => {
+        bloque.style.display = 'none';
+    });
+
+    const bloqueActivo = document.getElementById('bloque-semestre-' + semestreSeleccionado);
+    if (bloqueActivo) {
+        bloqueActivo.style.display = 'block';
+    }
 }

@@ -5,26 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración - Captura de Calificaciones</title>
     <link rel="stylesheet" href="/proyecto/style.css">
+    <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
 </head>
 <body>
 
-    <!-- Reutilizamos tu Navbar -->
     <nav class="navbar">
+        <div class="navbar-logo-left-container">
+            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+        </div>
+        
         <ul class="nav-links">
             <li><a href="profesores.html">Inicio</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">Gestión <span class="arrow">▼</span></a>
                 <ul class="dropdown-content">
-                    <li><a href="captura-notas.html">Capturar Notas</a></li>
-                    <li><a href="#">Lista de Alumnos</a></li>
+                    <li><a href="CapCalificaciones.html">Capturar Notas</a></li>
+                    <li><a href="Mis_Materias.html">Mis Materias</a></li>
                 </ul>
             </li>
             <li><a href="../Inicial.html">Cerrar Sesión</a></li>
         </ul>
+
+        <div class="navbar-logo-right-container">
+            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+        </div>
     </nav>
 
-    <main class="main-content">
-        <!-- Usamos una versión ancha de la tarjeta -->
+    <main class="main-content" style="padding-top: 120px; padding-bottom: 80px;">
         <div class="glass-card glass-card-wide">
             <h1>Captura de Calificaciones</h1>
             <p style="margin-bottom: 20px; color: #555;">Ingresa los resultados por unidad académica</p>
@@ -42,44 +49,26 @@
                             <th>Unidad 5</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tabla-calificaciones-body">
                         <tr>
-                            <td>Juan Pérez López</td>
-                            <td>Cálculo Diferencial</td>
-                            <td><input type="number" step="1" min="0" max="100" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="100" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="100" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="100" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="100" placeholder="   0"></td>
-                        </tr>
-                        <tr>
-                            <td>Maria García Ruiz</td>
-                            <td>Bases de Datos</td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                        </tr>
-                        <tr>
-                            <td>Carlos Sosa Méndez</td>
-                            <td>Programación Web</td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
-                            <td><input type="number" step="1" min="0" max="10" placeholder="   0"></td>
+                            <td colspan="7" style="text-align: center;">Cargando lista de alumnos...</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="button-group">
-                <button type="button" class="submit-btn" style="background-color: #555;">Cancelar</button>
-                <button type="submit" class="submit-btn">Guardar Cambios</button>
+                <button type="button" class="submit-btn" style="background-color: #555;" onclick="window.location.href='Mis_Materias.html'">Cancelar</button>
+                <button type="button" id="btn-guardar-notas" class="submit-btn">Guardar Cambios</button>
             </div>
         </div>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script src="../conexion_db.js"></script> 
+    <script src="logica_calificaciones.js"></script>
 
 </body>
 </html>

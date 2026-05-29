@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Profesores - Mis Materias Asignadas</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+    <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo-left-container">
+            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+        </div>
+        
+        <div class="nav-links-wrapper">
+            <ul class="nav-links">
+                <li><a href="/proyecto/profesores/profesores.html">Inicio</a></li>
+                
+                <li class="dropdown">
+                    <a href="#" class="dropbtn" style="color: #34db53; font-weight: bold;">Herramientas <span class="arrow">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="/proyecto/profesores/CapCalificaciones.html">Capturar Calificaciones</a></li>
+                        <li><a href="/proyecto/profesores/visualizacion_horario.html">Horario de Clases</a></li>
+                        <li><a href="Mis_Materias.html">Mis materias</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Servicios <span class="arrow">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="#">Seguro Facultativo</a></li>
+                    </ul>
+                </li>
+                
+                <li><a href="#" onclick="cerrarSesion()">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+
+        <div class="navbar-logo-right-container">
+            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+        </div>
+    </nav>
+
+    <main class="main-content" style="padding-top: 120px; padding-bottom: 80px;">
+        <div class="glass-card glass-card-wide" style="text-align: left;">
+            
+            <div style="margin-bottom: 25px;">
+                <h1 style="color: #1a5c24; font-size: 1.8rem; margin-bottom: 5px;">Mis Materias Asignadas</h1>
+                <p style="color: #555; font-size: 0.9rem;">Carga académica vigente para el semestre actual</p>
+            </div>
+
+            <div class="tabs-finanzas" style="margin-bottom: 20px;">
+                <button class="tab-financiero-btn active" onclick="filtrarTurno('todos', this)">Todas las Clases</button>
+                <button class="tab-financiero-btn" onclick="filtrarTurno('matutino', this)">🌞 Turno Matutino (7:00 AM - 1:00 PM)</button>
+                <button class="tab-financiero-btn" onclick="filtrarTurno('vespertino', this)">🌙 Turno Vespertino (1:00 PM - 7:00 PM)</button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 35px;" id="grid-materias">
+                </div>
+
+            <div style="margin-top: 10px; margin-bottom: 10px;">
+                <h2 style="color: #1a5c24; font-size: 1.3rem; margin-bottom: 15px;">Vista de Carga en Tabla</h2>
+            </div>
+            
+            <div class="table-container">
+                <table class="grades-table">
+                    <thead>
+                          <tr>
+                            <th>Asignatura</th>
+                            <th style="text-align: center;">Grupo</th>
+                            <th style="text-align: center;">Aula / Salón</th>
+                            <th style="text-align: center;">Acciones</th> </tr>
+                    </thead>
+                    <tbody id="tabla-materias-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function cerrarSesion() {
+            sessionStorage.clear();
+            window.location.replace('../Inicial.html');
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="/proyecto/conexion_DB.js"></script>
+
+    <script src="/proyecto/profesores/visualizacion_horario.js"></script>
+
+</body>
+</html>

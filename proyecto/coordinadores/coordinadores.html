@@ -5,51 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de personal administrativo - Inicio</title>
     <link rel="stylesheet" href="/proyecto/style.css">
+        <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
 </head>
 <body>
     <img src="/proyecto/Imagenes/Dragon_2.png" class="img-pop back-part_3" alt="Decoración Fondo">
+    
     <nav class="navbar">
         <div class="navbar-logo-left-container">
-                    <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
-                </div>
+            <img src="/proyecto/Imagenes/TecNM_logo.png" class="navbar-left-logo" alt="Logo TecNM">
+        </div>
+        
         <ul class="nav-links">
             <li><a href="/proyecto/coordinadores/coordinadores.html">Inicio</a></li>
             
             <li class="dropdown">
                 <a href="#" class="dropbtn">Herramientas <span class="arrow">▼</span></a>
                 <ul class="dropdown-content">
-                    <li><a href="CapCalificaciones.html">Capturar Calificaciones</a></li>
-                    <li><a href="#">Horario de Clases</a></li>
-                    <li><a href="NuevoC.html">Administrar aspirantes </a></li>
-                    <li><a href="#">Kardex</a></li>
+                    <li><a href="NuevoC.html">Administrar aspirantes</a></li>
+                    <li><a href="gestionar_horarios.html">Gestionar horarios</a></li>
                 </ul>
             </li>
 
-            <li class="dropdown">
-                <a href="#" class="dropbtn">Servicios <span class="arrow">▼</span></a>
-                <ul class="dropdown-content">
-                    <li><a href="#">Reinscripción</a></li>
-                    <li><a href="#">Seguro Facultativo</a></li>
-                    <li><a href="#">Servicio Social</a></li>
-                </ul>
-            </li>
-            <li><a href="../Inicial.html">Cerrar Sesión</a></li>
+            <li><a href="" onclick="cerrarSesion(); return false;">Cerrar Sesión</a></li>
         </ul>
 
-         <div class="navbar-logo-right-container">
-                    <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
-           </div>
+        <div class="navbar-logo-right-container">
+            <img src="/proyecto/Imagenes/itlm.png" class="navbar-right-logo" alt="Logo ITLM">
+        </div>
     </nav>
 
     <main class="main-content">
         <div class="glass-card">
             <h1>Bienvenido</h1>
             <hr style="margin: 15px 0; border: 0; border-top: 1px solid rgba(0,0,0,0.1);">
-            <p>Bienvenido al sistema institucional. Utiliza la barra superior para navegar por tus opciones académicas y servicios.</p>
+            <p>Bienvenido al sistema institucional. Utiliza la barra superior para navegar por tus opciones administrativas.</p>
             <br>
             <p><strong>Estado:</strong> Personal administrativo</p>
         </div>
     </main>
-      <img src="/proyecto/Imagenes/Dragon_2.png" class="img-pop back-part_4" alt="Decoración Fondo">
-    </body>
+    
+    <img src="/proyecto/Imagenes/Dragon_2.png" class="img-pop back-part_4" alt="Decoración Fondo">
+    <script>
+        function cerrarSesion() {
+            sessionStorage.clear();
+            window.location.replace('../Inicial.html');
+        }
+    </script>
+</body>
+</html>
+</body>
 </html>

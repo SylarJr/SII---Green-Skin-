@@ -1,0 +1,179 @@
+<html>
+    <head>
+            <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calificaiones - alumnos</title>
+    <link rel="stylesheet" href="/proyecto/style.css">
+       <link rel="icon" type="image/png" href="/proyecto/Imagenes/tecnm.png">
+    </head>
+
+    <body>
+       
+<nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="/proyecto/alumnos/alumnos.html">Inicio</a></li>
+            <li><a href="#" style="color: #34db53; font-weight: bold;">Mis Calificaciones</a></li>
+            <li><a href="/proyecto/Inicial.html">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido Principal: Boleta de Calificaciones -->
+<main class="main-content" style="padding-top: 120px; padding-bottom: 60px;">
+        <div class="glass-card glass-card-wide">
+            
+            <!-- Encabezado y Selector de Semestre -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 25px;">
+                <div style="text-align: left;">
+                    <h1 style="color: #1a5c24; font-size: 1.8rem; margin-bottom: 5px;">Historial por Semestres</h1>
+                    <p style="color: #666; font-size: 0.9rem;">Consulta tus materias aprobadas y promedio</p>
+                </div>
+                
+                <!-- Selector Dinámico -->
+                <div class="input-group" style="margin-bottom: 0; min-width: 200px; text-align: left;">
+                    <label style="margin-bottom: 5px; color: #1a5c24;">Filtrar por periodo:</label>
+                    <select id="selector-semestre" class="select-input" onchange="cambiarSemestre(this.value)">
+                        <option value="1">1er Semestre</option>
+                        <option value="2">2do Semestre</option>
+                        <option value="3" selected>3er Semestre</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- ================= BLOQUE SEMESTRE 1 ================= -->
+            <div id="bloque-semestre-1" class="semester-block" style="display: none;">
+                <div style="text-align: left; margin-bottom: 15px; font-weight: bold; color: #265b17;">
+                    Promedio del Periodo: 8.8
+                </div>
+                <div class="table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Asignatura (1er Semestre)</th>
+                                <th style="text-align: center;">Parcial 1</th>
+                                <th style="text-align: center;">Parcial 2</th>
+                                <th style="text-align: center;">Final</th>
+                                <th style="text-align: center;">Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Introducción a la Ingeniería</td>
+                                <td style="text-align: center;">9.0</td>
+                                <td style="text-align: center;">9.0</td>
+                                <td style="text-align: center; font-weight: bold;">9.0</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Álgebra Lineal</td>
+                                <td style="text-align: center;">8.0</td>
+                                <td style="text-align: center;">8.5</td>
+                                <td style="text-align: center; font-weight: bold;">8.3</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Fundamentos de Programación</td>
+                                <td style="text-align: center;">9.5</td>
+                                <td style="text-align: center;">9.0</td>
+                                <td style="text-align: center; font-weight: bold;">9.2</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= BLOQUE SEMESTRE 2 ================= -->
+            <div id="bloque-semestre-2" class="semester-block" style="display: none;">
+                <div style="text-align: left; margin-bottom: 15px; font-weight: bold; color: #265b17;">
+                    Promedio del Periodo: 9.0
+                </div>
+                <div class="table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Asignatura (2do Semestre)</th>
+                                <th style="text-align: center;">Parcial 1</th>
+                                <th style="text-align: center;">Parcial 2</th>
+                                <th style="text-align: center;">Final</th>
+                                <th style="text-align: center;">Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cálculo Diferencial</td>
+                                <td style="text-align: center;">8.5</td>
+                                <td style="text-align: center;">8.0</td>
+                                <td style="text-align: center; font-weight: bold;">8.3</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Cálculo Integral</td>
+                                <td style="text-align: center;">9.0</td>
+                                <td style="text-align: center;">9.5</td>
+                                <td style="text-align: center; font-weight: bold;">9.3</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Programación Orientada a Objetos</td>
+                                <td style="text-align: center;">9.5</td>
+                                <td style="text-align: center;">9.5</td>
+                                <td style="text-align: center; font-weight: bold;">9.5</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ================= BLOQUE SEMESTRE 3 ================= -->
+            <div id="bloque-semestre-3" class="semester-block">
+                <div style="text-align: left; margin-bottom: 15px; font-weight: bold; color: #265b17;">
+                    Promedio del Periodo: 9.4
+                </div>
+                <div class="table-container">
+                    <table class="grades-table">
+                        <thead>
+                            <tr>
+                                <th>Asignatura (3er Semestre)</th>
+                                <th style="text-align: center;">Parcial 1</th>
+                                <th style="text-align: center;">Parcial 2</th>
+                                <th style="text-align: center;">Final</th>
+                                <th style="text-align: center;">Estatus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Programación Web (JSP)</td>
+                                <td style="text-align: center;">9.5</td>
+                                <td style="text-align: center;">9.0</td>
+                                <td style="text-align: center; font-weight: bold;">9.3</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Business Intelligence & Hypercubes</td>
+                                <td style="text-align: center;">8.5</td>
+                                <td style="text-align: center;">9.0</td>
+                                <td style="text-align: center; font-weight: bold;">8.8</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Estructura de Datos (Java)</td>
+                                <td style="text-align: center;">10.0</td>
+                                <td style="text-align: center;">10.0</td>
+                                <td style="text-align: center; font-weight: bold;">10.0</td>
+                                <td style="text-align: center;"><span class="badge badge-pass">Aprobado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <p style="text-align: left; font-size: 0.8rem; color: #777; font-style: italic;">
+                * Selecciona otro periodo en el menú desplegable para alternar la vista de tus materias anteriores.
+            </p>
+
+        </div>
+    </main>
+      <script src="/proyecto/script.js"></script>
+    </body>
+</html>
